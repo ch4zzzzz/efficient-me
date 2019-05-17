@@ -1,5 +1,5 @@
 <template>
-  <section>
+  <section class="TaskList">
     <Header :title="title"/>
     <ul>
       <Task v-for="task in tasks" :task="task" :key="task.id"/>
@@ -42,4 +42,8 @@ export default {
 
 </script>
 
-<style scoped="scoped"></style>
+<style scoped="scoped">
+.TaskList {
+  width: 100%;
+}
+</style>
