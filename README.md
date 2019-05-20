@@ -38,7 +38,9 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 - ES6
 
 ## 页面和功能
-
+- [x] 登录页
+- [ ] 注册页
+- [ ] 找回密码页
 - [ ] 任务列表页
 - [ ] 任务文件夹页
   * 头像、用户名 -> 点击进入个人主页

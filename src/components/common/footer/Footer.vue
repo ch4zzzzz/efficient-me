@@ -31,6 +31,7 @@ export default {
       }
     } else {
       setStore("footerButtons", [0]);
+      console.log(getStore("?"));
       buttons.push(0);
     }
   },

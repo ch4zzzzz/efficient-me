@@ -1,40 +1,27 @@
 <template>
   <div id="app">
     
-    <TaskList/>
+    <!-- <router-view></router-view> -->
+    <router-view></router-view>
+    <!-- <TaskList/> -->
     <Footer/>
   </div>
 </template>
 
 <script>
 import Footer from "./components/common/footer/Footer.vue"
-import TaskList from "./views/home/TaskList.vue"
+import TaskList from "./views/task-list/TaskList.vue"
 
 export default {
   name: "App",
   components: {
-    Footer,
-    TaskList,
+    Footer
   }
 }
 </script>
 
-<style lang="scss">
+<style>
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-#nav {
-  padding: 30px;
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
+  height: 100%;
 }
 </style>

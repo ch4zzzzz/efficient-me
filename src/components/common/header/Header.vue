@@ -1,5 +1,12 @@
 <template>
-  <span class="header"> {{title}} </span>
+  <section class="header">
+
+    <h2 class="header">
+      <slot name="sidebar"></slot>
+      <span class="title"> {{title}} </span>
+    </h2>
+  </section>
+
   
 </template>
 
@@ -22,9 +29,9 @@ export default {
 
 <style scoped="scoped">
 .header {
-  width: 100%;
-  height: 1rem;
+  text-align: left;
+  font-size: 1.2rem;
+  margin-left: 0.3rem;
 }
-
   
 </style>

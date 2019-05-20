@@ -13,6 +13,6 @@ const getStore = name => {
 }
 
 export {
-	setStore,
-	getStore,
+  setStore,
+  getStore
 }
