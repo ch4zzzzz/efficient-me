@@ -63,6 +63,10 @@ export default {
   width: 80%;
 }
 
+h1 {
+  text-align: center;
+}
+
 .label {
   margin-left: 1.2rem;
   margin-bottom: 0;
@@ -77,7 +81,10 @@ export default {
 
 .button {
   margin-top: 3rem;
+  position: relative;
   width: 90%;
+  left: 50%;
+  transform: translate(-50%, 0);
 }
 
 #other-links {

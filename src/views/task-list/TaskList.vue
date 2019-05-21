@@ -5,48 +5,42 @@
         
       </template> -->
     </Header>
-    <!-- <hr> -->
 
-<!--     <b-list-group class="task-list" v-if="uncompletedTasks.length">
-      <span class="list-title">未完成</span>
+    <transition-group class="task-list"
+        name="custom-classes-transition" tag="b-list-group"
+        enter-active-class="animated fadeInUp" leave-active-class="animated fadeOutDown leave-active">
+      <li v-if="uncompletedTasks.length" key="uncompletedTasks"
+          class="list-title task-list-item">未完成</li>
       <Task v-for="task in uncompletedTasks" 
           :task="task" :key="task.id"
-          />
-    </b-list-group> -->
-    <transition-group v-if="uncompletedTasks.length"
-        name="custom-classes-transition" tag="b-list-group"
-        enter-active-class="animated fadeInUp" leave-active-class="animated fadeOutDown">
-
-      <Task v-for="task in uncompletedTasks" 
-          :task="task" :key="task.id"
-          class="custom-classes-transition-item"/>
-    </transition-group>
-
-<!--     <transition name="list-title">
-      <span class="list-title">已完成</span>
-    </transition> -->
-
-    <transition-group v-if="completedTasks.length"
-        name="custom-classes-transition" tag="b-list-group"
-        enter-active-class="animated fadeInDown" leave-active-class="animated fadeOutUp">
-      <li key="title" class="list-title">已完成</li>
+          class="task-list-item"/>
+      <li v-if="completedTasks.length" key="completedTasks"
+          class="list-title task-list-item">已完成</li>
       <Task v-for="task in completedTasks" 
           :task="task" :key="task.id"
-          class="custom-classes-transition-item"/>
+          class="task-list-item"/>
     </transition-group>
 
-<!--     <b-list-group class="task-list" v-if="completedTasks.length">
-      
-      <Task v-for="task in completedTasks" :task="task" :key="task.id"/>
-    </b-list-group> -->
-
-    <div id="add-task-button" @click="addTask">
+    <div id="add-task-button" v-show="!newTaskForm" @click="addTask">
       <b-img id="add-task-background" v-bind="imgConfig" rounded="circle" alt="Circle image"></b-img>
       <span id="add-task-icon" class="iconfont icon-icon_add"></span>
     </div>
-
-    <input type="text" v-model="newTask" id="new-task" ref="newTask"
-        v-show="newTaskInput">
+    
+    <b-form id="new-task-form" v-show="newTaskForm">
+      <b-form-input type="text" id="new-task" v-model="newTask.content" ref="newTask"
+          v-focus="newTaskInput"
+          @blur="hideTaskInput"/>
+      <b-form-input type="text" v-model="newTask.folderName" 
+          @focus="newTaskFolderNameInputToggle"
+          @blur="newTaskFolderNameInputToggle"/>
+      <b-form-input type="date" v-model="newTask.date"
+          @focus="newTaskDateInputToggle"
+          @blur="newTaskDateInputToggle"/>
+    </b-form>
+    
+    <b-modal id="modal-1" title="BootstrapVue">
+      <p class="my-4">Hello from modal!</p>
+    </b-modal>
 
     <Sidebar :user="user"></Sidebar>
   </section>
@@ -105,9 +99,11 @@ export default {
 
       },
       folderName: "",
-      newTask: "",
+      newTask: {},
       newTaskInput: false,
-      imgConfig: { blank: true, blankColor: '#8a2be2', width: 75, height: 75, class: 'm1' },
+      newTaskDate: false,
+      newTaskFolderName: false,
+      imgConfig: { blank: true, blankColor: '#8a2be2', width: 50, height: 50, class: 'm1' },
     }
   },
   methods: {
@@ -120,9 +116,19 @@ export default {
       return tasks.filter(task => task.folderName===folderName);
     },
     addTask(){
-      this.$refs.newTask.focus();
       this.newTaskInput = true;
     },
+    hideTaskInput(){
+      this.newTaskInput = false;
+    },
+    newTaskDateInputToggle(){
+      // console.log(this.newTaskDate);
+      this.newTaskDate = !this.newTaskDate;
+    },
+    newTaskFolderNameInputToggle(){
+      this.newTaskFolderName = !this.newTaskFolderName;
+      console.log(this.newTaskFolderName);
+    }
   },
   computed: {
     tasks: function(){
@@ -133,9 +139,22 @@ export default {
     },
     uncompletedTasks: function(){
       return this.tasks.filter(task => !task.complete);
+    },
+    newTaskForm: function(){
+      return this.newTaskInput || this.newTaskDate
+          || this.newTaskFolderName;
     }
   },
-
+  directives: {
+    focus: {
+      // 指令的定义
+      update: function (el, value) {
+        if(value){
+          el.focus();
+        }
+      }
+    }
+  },
 }
 
 </script>
@@ -147,10 +166,11 @@ export default {
   width: 100%;
   height: 100%;
   position: relative;
+  touch-action: none;
 }
 
 .task-list {
-  display: block;
+  /*display: block;*/
   width: 100%;
 }
 
@@ -160,9 +180,17 @@ export default {
   background-color: #c0c0c0;
 }
 
-.custom-classes-transition-item {
-  transition: all 1s ease-out;
+.custom-classes-transition-move {
+  transition: 0.5s;
+  touch-action: none;
+  display: block;
 }
+
+.leave-active {
+  position: absolute;
+  opacity: 0.5;
+}
+
 #add-task-button {
   position: fixed;
   bottom: 0.5rem;
@@ -175,6 +203,12 @@ export default {
   left: 50%;
   transform: translate(-50%, -50%);
   font-size: 2rem;
+}
+
+#new-task-form {
+  width: 100%;
+  position: fixed;
+  bottom: 0;
 }
 
 #new-task {

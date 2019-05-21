@@ -39,6 +39,10 @@ export default {
 
 <style scoped="scoped">
 
+.task {
+  width: 100%;
+}
+
 .task-checkbox {
   display: inline-block;
   float: left;
