@@ -170,7 +170,7 @@ export default {
 }
 
 .task-list {
-  /*display: block;*/
+  display: block;
   width: 100%;
 }
 
