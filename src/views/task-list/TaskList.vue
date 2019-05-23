@@ -26,16 +26,20 @@
       <span id="add-task-icon" class="iconfont icon-icon_add"></span>
     </div>
     
+    <b-form-input type="text"/>
+    <input type="text">
+
     <b-form id="new-task-form" v-show="newTaskForm">
       <b-form-input type="text" id="new-task" v-model="newTask.content" ref="newTask"
-          v-focus="newTaskInput"
-          @blur="hideTaskInput"/>
+          v-focus="state.taskContentInput"
+          @focus="taskContentInputFocus"
+          @blur="taskContentInputToggle"/>
       <b-form-input type="text" v-model="newTask.folderName" 
-          @focus="newTaskFolderNameInputToggle"
-          @blur="newTaskFolderNameInputToggle"/>
+          @focus="taskFolderNameInputToggle"
+          @blur="taskFolderNameInputToggle"/>
       <b-form-input type="date" v-model="newTask.date"
-          @focus="newTaskDateInputToggle"
-          @blur="newTaskDateInputToggle"/>
+          @focus="taskDateInputToggle"
+          @blur="taskDateInputToggle"/>
     </b-form>
     
     <b-modal id="modal-1" title="BootstrapVue">
@@ -52,6 +56,32 @@ import Header from "../../components/common/header/Header.vue";
 import Task from "./Task.vue";
 import Sidebar from "./Sidebar.vue";
 import 'animate.css';
+
+
+// const store = new Vuex.Store({
+//   state: {
+//     taskContentInput: false,
+//     taskDateInput: false,
+//     taskFolderNameInput: false, 
+//   },
+//   mutations: {
+//     taskContentInputToggle: state => {
+//       state.taskContentInput = !state.taskContentInput;
+//     },
+//     taskDateInputToggle: state => {
+//       state.taskDateInput = !state.taskDateInput;
+//     }
+//     taskFolderNameInputToggle: state => {
+//       state.taskFolderNameInput = !state.taskFolderNameInput;
+//     }
+//   },
+//   getter: {
+//     newTaskForm: state => {
+//       return state.taskContentInput || state.taskDateInput || 
+//           state.taskFolderNameInput;
+//     }
+//   }
+// })
 
 export default {
   name: "TaskList",
@@ -100,9 +130,12 @@ export default {
       },
       folderName: "",
       newTask: {},
-      newTaskInput: false,
-      newTaskDate: false,
-      newTaskFolderName: false,
+      state: {
+        taskContentInput: false,
+        taskDateInput: false,
+        taskFolderNameInput: false, 
+      },
+
       imgConfig: { blank: true, blankColor: '#8a2be2', width: 50, height: 50, class: 'm1' },
     }
   },
@@ -116,19 +149,47 @@ export default {
       return tasks.filter(task => task.folderName===folderName);
     },
     addTask(){
-      this.newTaskInput = true;
+      this.state.taskContentInput = true;
     },
     hideTaskInput(){
-      this.newTaskInput = false;
+      window.setTimeout(() => {
+        console.log("blur")
+        this.newTaskInput = false;
+      }, 300)
     },
-    newTaskDateInputToggle(){
-      // console.log(this.newTaskDate);
-      this.newTaskDate = !this.newTaskDate;
+    taskContentInputFocus() {
+      this.state.taskContentInput = true;
     },
-    newTaskFolderNameInputToggle(){
-      this.newTaskFolderName = !this.newTaskFolderName;
-      console.log(this.newTaskFolderName);
-    }
+    taskContentInputToggle() {
+      if(this.state.taskContentInput){
+        setTimeout(() => {
+          this.state.taskContentInput = false;
+        }, 300);
+      } else {
+        this.state.taskContentInput = true;
+      }
+      console.log(this.newTaskForm);
+    },
+    taskDateInputToggle() {
+      if(this.state.taskDateInput){
+        setTimeout(() => {
+          this.state.taskDateInput = false;
+        }, 300);
+      } else {
+        this.state.taskDateInput = true;
+      }
+      console.log(this.newTaskForm);
+    },
+    taskFolderNameInputToggle() {
+      if(this.state.taskFolderNameInput){
+        setTimeout(() => {
+          this.state.taskFolderNameInput = false;
+        }, 300);
+      } else {
+        this.state.taskFolderNameInput = true;
+      }
+      console.log(this.newTaskForm);
+    },
   },
   computed: {
     tasks: function(){
@@ -141,15 +202,16 @@ export default {
       return this.tasks.filter(task => !task.complete);
     },
     newTaskForm: function(){
-      return this.newTaskInput || this.newTaskDate
-          || this.newTaskFolderName;
+      let state = this.state;
+      return state.taskContentInput || state.taskDateInput || 
+          state.taskFolderNameInput;
     }
   },
   directives: {
     focus: {
       // 指令的定义
-      update: function (el, value) {
-        if(value){
+      update: function (el, obj) {
+        if(obj.value){
           el.focus();
         }
       }
