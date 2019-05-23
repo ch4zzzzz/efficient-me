@@ -58,31 +58,6 @@ import Sidebar from "./Sidebar.vue";
 import 'animate.css';
 
 
-// const store = new Vuex.Store({
-//   state: {
-//     taskContentInput: false,
-//     taskDateInput: false,
-//     taskFolderNameInput: false, 
-//   },
-//   mutations: {
-//     taskContentInputToggle: state => {
-//       state.taskContentInput = !state.taskContentInput;
-//     },
-//     taskDateInputToggle: state => {
-//       state.taskDateInput = !state.taskDateInput;
-//     }
-//     taskFolderNameInputToggle: state => {
-//       state.taskFolderNameInput = !state.taskFolderNameInput;
-//     }
-//   },
-//   getter: {
-//     newTaskForm: state => {
-//       return state.taskContentInput || state.taskDateInput || 
-//           state.taskFolderNameInput;
-//     }
-//   }
-// })
-
 export default {
   name: "TaskList",
   components: {
@@ -151,12 +126,7 @@ export default {
     addTask(){
       this.state.taskContentInput = true;
     },
-    hideTaskInput(){
-      window.setTimeout(() => {
-        console.log("blur")
-        this.newTaskInput = false;
-      }, 300)
-    },
+
     taskContentInputFocus() {
       this.state.taskContentInput = true;
     },
