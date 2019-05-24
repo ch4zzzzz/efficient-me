@@ -3,8 +3,9 @@ import './plugins/bootstrap-vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
-
 import FastClick from 'fastclick'
+
+import './api/mock-api.js'
 
 Vue.config.productionTip = false
 

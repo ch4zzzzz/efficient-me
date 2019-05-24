@@ -26,8 +26,6 @@
       <span id="add-task-icon" class="iconfont icon-icon_add"></span>
     </div>
     
-    <b-form-input type="text"/>
-    <input type="text">
 
     <b-form id="new-task-form" v-show="newTaskForm">
       <b-form-input type="text" id="new-task" v-model="newTask.content" ref="newTask"
@@ -42,9 +40,7 @@
           @blur="taskDateInputToggle"/>
     </b-form>
     
-    <b-modal id="modal-1" title="BootstrapVue">
-      <p class="my-4">Hello from modal!</p>
-    </b-modal>
+
 
     <Sidebar :user="user"></Sidebar>
   </section>
@@ -55,6 +51,8 @@
 import Header from "../../components/common/header/Header.vue";
 import Task from "./Task.vue";
 import Sidebar from "./Sidebar.vue";
+import axios from 'axios';
+import {Api} from '../../api/api.js';
 import 'animate.css';
 
 
@@ -65,39 +63,19 @@ export default {
     Task,
     Sidebar,
   },
+  created: function(){
+    axios
+      .post(Api.getTaskList)
+      .then(response => {
+        this.allTasks = response.data.taskList;
+      })
+      .catch(error => console.log(`getTaskList error: ${error}`))
+
+  },
   data(){
     return {
       title: "今天",
-      allTasks: [
-        {
-          id: 1,
-          name: "1",
-          time: "today",
-          folderName: "all",
-          complete: true,
-        },
-        {
-          id: 2,
-          name: "2",
-          time: "today",
-          folderName: "1",
-          complete: false,
-        },
-        {
-          id: 3,
-          name: "3",
-          time: "today",
-          folderName: "all",
-          complete: false,
-        },
-        {
-          id: 4,
-          name: "4",
-          time: "today",
-          folderName: "all",
-          complete: true,
-        },
-      ],
+      allTasks: [],
       user: {
         username: "Chairman",
         photo: "",
@@ -203,6 +181,7 @@ export default {
 
 .task-list {
   display: block;
+  position: relative;
   width: 100%;
 }
 

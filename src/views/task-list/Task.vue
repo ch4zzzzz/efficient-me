@@ -16,8 +16,8 @@
 
       <br>
 
-      <span class="task-time">
-        {{task.time}}
+      <span class="task-date">
+        {{task.date}}
       </span>
 
       <span class="folder-name">
@@ -61,12 +61,12 @@ export default {
   width: 90%;
 }
 
-.task-time, .folder-name {
+.task-date, .folder-name {
   color: #c0c0c0;
   font-size: 0.8rem;
  }
 
-.task-time {
+.task-date {
   float: left;
 }
 
