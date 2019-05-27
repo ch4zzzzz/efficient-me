@@ -2,7 +2,9 @@
   <section class="header">
 
     <h2 class="header">
+      
       <slot name="sidebar"></slot>
+      
       <span class="title"> {{title}} </span>
     </h2>
   </section>

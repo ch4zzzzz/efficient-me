@@ -1,9 +1,11 @@
 <template>
   <section class="TaskListView">
     <Header :title="title">
-      <!-- <template #sidebar>
-        
-      </template> -->
+      <template #sidebar>
+        <a @click="openSidebar">
+          <span class="iconfont icon-icon_threeline_fill"></span>
+        </a>
+      </template>
     </Header>
 
     <transition-group class="task-list"
@@ -20,6 +22,7 @@
           :task="task" :key="task.id"
           class="task-list-item"/>
     </transition-group>
+
 
     <div id="add-task-button" v-show="!newTaskForm" @click="addTask">
       <b-img id="add-task-background" v-bind="imgConfig" rounded="circle" alt="Circle image"></b-img>
@@ -39,10 +42,10 @@
           @focus="taskDateInputToggle"
           @blur="taskDateInputToggle"/>
     </b-form>
-    
 
-
-    <Sidebar :user="user"></Sidebar>
+    <b-modal id="folder-sidebar">
+      <Sidebar></Sidebar>
+    </b-modal>
   </section>
 
 </template>
@@ -81,7 +84,6 @@ export default {
         photo: "",
 
       },
-      folderName: "",
       newTask: {},
       state: {
         taskContentInput: false,
@@ -138,6 +140,9 @@ export default {
       }
       console.log(this.newTaskForm);
     },
+    openSidebar(){
+      this.$bvModal.show("folder-sidebar")
+    }
   },
   computed: {
     tasks: function(){
@@ -153,6 +158,9 @@ export default {
       let state = this.state;
       return state.taskContentInput || state.taskDateInput || 
           state.taskFolderNameInput;
+    },
+    folderName: function(){
+      return this.$store.state.taskFolder;
     }
   },
   directives: {
