@@ -1,12 +1,6 @@
 <template>
   <section class="TaskListView">
-    <Header :title="title">
-      <template #sidebar>
-        <a @click="openSidebar">
-          <span class="iconfont icon-icon_threeline_fill"></span>
-        </a>
-      </template>
-    </Header>
+    
 
     <transition-group class="task-list"
         name="custom-classes-transition" tag="b-list-group"
@@ -43,15 +37,14 @@
           @blur="taskDateInputToggle"/>
     </b-form>
 
-    <b-modal id="folder-sidebar">
-      <Sidebar></Sidebar>
-    </b-modal>
+    
+    <Sidebar v-show="showSidebar" v-clickoutside="closeSidebar"></Sidebar>
+    
   </section>
 
 </template>
 
 <script>
-import Header from "../../components/common/header/Header.vue";
 import Task from "./Task.vue";
 import Sidebar from "./Sidebar.vue";
 import axios from 'axios';
@@ -62,7 +55,6 @@ import 'animate.css';
 export default {
   name: "TaskList",
   components: {
-    Header,
     Task,
     Sidebar,
   },
@@ -140,8 +132,13 @@ export default {
       }
       console.log(this.newTaskForm);
     },
-    openSidebar(){
-      this.$bvModal.show("folder-sidebar")
+    closeSidebar(){
+      console.log("begin");
+      let state = this.$store.state.showSidebar;
+      console.log("end");
+      if(state===true){
+        this.$store.commit('sidebarToggle');
+      }
     }
   },
   computed: {
@@ -161,6 +158,9 @@ export default {
     },
     folderName: function(){
       return this.$store.state.taskFolder;
+    },
+    showSidebar: function(){
+      return this.$store.state.showSidebar;
     }
   },
   directives: {
@@ -185,6 +185,7 @@ export default {
   height: 100%;
   position: relative;
   touch-action: none;
+  overflow: scroll;
 }
 
 .task-list {

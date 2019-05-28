@@ -16,7 +16,7 @@
           <span class="iconfont icon-icon_calendar_fill folder-icon"></span>
           <span>今天</span>
         </b-list-group-item>
-        <b-list-group-item>
+        <b-list-group-item @click="changeFolder('')">
           <span class="iconfont icon-icon_collect_fill"></span>
           <span>任务一览</span>
         </b-list-group-item>
@@ -70,7 +70,9 @@ export default {
     changeFolder(folderName){
       console.log(folderName);
       this.$store.commit('changeFolder', folderName);
-    }
+      this.$store.commit('changeCurrentView', folderName);
+    },
+
   }
 }
 </script>
@@ -86,6 +88,7 @@ export default {
   height: 100%;
   display: block;
   background-color: #c0c0c0;
+  /*z-index: 2;*/
 }
 
 #user-info {
