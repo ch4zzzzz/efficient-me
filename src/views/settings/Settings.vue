@@ -1,17 +1,17 @@
 <template>
-  <section id="settings"></section>
+  <section id="settings">
+    <router-view></router-view>
+
+  </section>
 </template>
 
 <script>
 export default {
   name: "Settings",
+  created(){
+    this.$store.commit('changeCurrentView', "Settings");
+  }
 }
 
 </script>
 
-<style scoped="scoped">
-#settings {
-  height: 100%;
-  width: 100%;
-}
-</style>

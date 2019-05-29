@@ -6,7 +6,7 @@ import {Api} from "./api.js"
 
 
 Mock.mock(Api.getTaskList, {
-  'taskList|10-15': [{
+  'taskList|2-10': [{
     'id|+1': 1,
     'name': '@csentence(4,12)',
     'date': '@date(T)',
@@ -23,6 +23,6 @@ Mock.mock(Api.getFolderList, {
 
 Mock.mock(Api.getUserInfo, {
   'username': '@cname',
-  // 'photo': 
+  'photo': 'https://github.com/ch4zzzzz/efficient-me/blob/master/src/assets/img/1.jpg',
 
 })

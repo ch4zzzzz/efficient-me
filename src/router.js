@@ -7,6 +7,8 @@ Vue.use(Router)
 import Login from "./views/login/Login.vue"
 import TaskList from "./views/task-list/TaskList.vue"
 import Settings from "./views/settings/Settings.vue"
+import {default as SettingsMain} from "./views/settings/Main.vue"
+import FooterViewSetting from "./views/settings/childView/FooterViewSetting.vue"
 
 export default new Router({
   mode: 'history',
@@ -32,7 +34,17 @@ export default new Router({
         {
           path: "settings/",
           component: Settings,
-        }
+          children: [
+            {
+              path: "",
+              component: SettingsMain,
+            },
+            {
+              path: "footer-view-setting/",
+              component: FooterViewSetting,
+            }
+          ]
+        },
       ]
     },
     

@@ -1,11 +1,11 @@
 <template>
   <div id="app">
    
-    <router-view id="main-view"></router-view>
+    <router-view class="main-view"></router-view>
 
     <Header :title="title">
       <template #sidebar>
-        <a @click="sidebarToggle">
+        <a v-if="isTaskList" @click="sidebarToggle">
         <!-- <a @click="openSidebar"> -->
           <span class="iconfont icon-icon_threeline_fill"></span>
         </a>
@@ -32,16 +32,23 @@ export default {
   computed: {
     title: function(){
       let currentView = this.$store.state.currentView;
-      if(currentView == "TaskList"){
+      if(currentView === "TaskList"){
         return this.$store.state.taskFolder;
       }
+      console.log(`Current view: ${currentView}`)
       return currentView;
+    },
+    isTaskList: function(){
+      return this.$store.state.currentView==="TaskList";
     }
   },
   methods: {
     sidebarToggle(){
       this.$store.commit("sidebarToggle");
     }
+  },
+  updated: function(){
+    console.log(`Current view: ${this.title}`);
   }
 }
 </script>
@@ -51,7 +58,7 @@ export default {
   height: 100%;
 }
 
-#main-view {
-  margin-top: 1.6rem;
+.main-view {
+  padding-top: 1rem;
 }
 </style>

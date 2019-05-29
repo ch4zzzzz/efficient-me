@@ -6,7 +6,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     taskFolder: "",
-    currentView: "TaskList",
+    currentView: "",
     showSidebar: false,
   },
   mutations: {

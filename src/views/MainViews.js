@@ -5,6 +5,11 @@ const views = [
     icon: ""
   },
   {
+    name: "settings",
+    link: "",
+    icon: "",
+  },
+  {
     name: "tomatoes",
     link: "",
     icon: ""

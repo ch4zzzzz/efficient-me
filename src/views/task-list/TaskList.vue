@@ -64,7 +64,8 @@ export default {
       .then(response => {
         this.allTasks = response.data.taskList;
       })
-      .catch(error => console.log(`getTaskList error: ${error}`))
+      .catch(error => console.log(`getTaskList error: ${error}`));
+    this.$store.commit("changeCurrentView", "TaskList");
 
   },
   data(){
@@ -88,7 +89,7 @@ export default {
   },
   methods: {
     folderFilter(folderName) {
-      console.log(folderName)
+      console.log(`Current folderName: ${folderName}`)
       let tasks = this.allTasks;
       if(folderName===""){
         return tasks;
