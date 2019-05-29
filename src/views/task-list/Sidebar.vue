@@ -88,7 +88,7 @@ export default {
   height: 100%;
   display: block;
   background-color: #c0c0c0;
-  /*z-index: 2;*/
+  z-index: 1;
 }
 
 #user-info {
