@@ -6,6 +6,7 @@ Vue.use(Router)
 
 import Login from "./views/login/Login.vue"
 import TaskList from "./views/task-list/TaskList.vue"
+import Settings from "./views/settings/Settings.vue"
 
 export default new Router({
   mode: 'history',
@@ -28,7 +29,10 @@ export default new Router({
           path: "task-list/", // 任务列表页
           component: TaskList,
         },
-
+        {
+          path: "settings/",
+          component: Settings,
+        }
       ]
     },
     

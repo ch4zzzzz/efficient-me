@@ -5,7 +5,7 @@
       <img id="photo"
         rounded="circle" :src="user.photo"/>
       <div id="buttons">
-        <span class="iconfont icon-icon_setting_fill button"></span>
+        <span class="iconfont icon-icon_setting_fill button" @click="turnToSettings"></span>
       </div>
       <span id="username">{{user.username}}</span>
     </section>
@@ -72,7 +72,9 @@ export default {
       this.$store.commit('changeFolder', folderName);
       this.$store.commit('changeCurrentView', folderName);
     },
-
+    turnToSettings(){
+      this.$router.push("settings/");
+    }
   }
 }
 </script>
