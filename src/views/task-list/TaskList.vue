@@ -38,7 +38,8 @@
     </b-form>
 
     
-    <Sidebar v-show="showSidebar" v-clickoutside="closeSidebar"></Sidebar>
+    <Sidebar ref="Sidebar"></Sidebar>
+
     
   </section>
 
@@ -162,6 +163,13 @@ export default {
     },
     showSidebar: function(){
       return this.$store.state.showSidebar;
+    }
+  },
+  watch: {
+    showSidebar: function(){
+      if(this.showSidebar==true){
+        this.$refs.Sidebar.open();
+      }
     }
   },
   directives: {

@@ -1,5 +1,7 @@
 <template>
-  <section id="sidebar">
+
+    
+  <section id="sidebar" :style="openStyle">
 
     <section id="user-info">
       <img id="photo"
@@ -38,11 +40,13 @@
       </b-list-group>
     </section>
   </section>
+
 </template>
 
 <script>
 import axios from 'axios';
 import {Api} from '../../api/api.js';
+
 
 export default {
   name: "Sidebar",
@@ -51,7 +55,11 @@ export default {
       .post(Api.getFolderList)
       .then(response => {
         this.taskFolders = response.data.folderList;
-      })
+      });
+    document.addEventListener('click', this.documentClick);
+  },
+  destroyed: function(){
+    document.removeEventListener('click', this.documentClick);
   },
   props: {
     
@@ -64,6 +72,8 @@ export default {
         photo: "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1558928507222&di=d9297e82c0f542dc21102132f2e88b77&imgtype=0&src=http%3A%2F%2Fimg3.duitang.com%2Fuploads%2Fitem%2F201503%2F10%2F20150310191646_5AuSC.jpeg",
       },
       taskFolders: [],
+      openStyle: {},
+      isOpen: false,
     }
   },
   methods: {
@@ -74,6 +84,31 @@ export default {
     },
     turnToSettings(){
       this.$router.push("settings/");
+    },
+    open(){
+      console.log("open");
+      this.openStyle = {
+        left: 0,
+      };
+      this.isOpen = true;
+    },
+    close(){
+      console.log("close");
+      this.openStyle = {};
+      this.isOpen = false;
+    },
+    documentClick(e){
+      console.log("documentClick");
+      let target = null;
+      if(e && e.target){
+        target = e.target;
+        console.log("got target");
+      }
+      if(target.id !== 'sidebar' &&
+            this.isOpen &&
+            target.id !== 'sidebarOpenButton'){
+        this.close(); 
+      }
     }
   }
 }
@@ -85,7 +120,7 @@ export default {
 #sidebar {
   position: fixed;
   top: 0;
-  /*left: -80%;*/
+  left: -80%;
   width: 80%;
   height: 100%;
   display: block;

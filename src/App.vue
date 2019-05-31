@@ -5,7 +5,7 @@
 
     <Header :title="title">
       <template #sidebar>
-        <a v-if="isTaskList" @click="sidebarToggle">
+        <a v-if="isTaskList" @click="sidebarToggle" id="sidebarOpenButton">
         <!-- <a @click="openSidebar"> -->
           <span class="iconfont icon-icon_threeline_fill"></span>
         </a>
