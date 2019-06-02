@@ -8,7 +8,9 @@ import Login from "./views/login/Login.vue"
 import TaskList from "./views/task-list/TaskList.vue"
 import Settings from "./views/settings/Settings.vue"
 import {default as SettingsMain} from "./views/settings/Main.vue"
-import FooterViewSetting from "./views/settings/childView/FooterViewSetting.vue"
+import FooterViewSetting from "./views/settings/children/FooterViewSetting.vue"
+import UserHome from "./views/user-home/UserHome.vue"
+import {default as UserHomeMain} from "./views/user-home/Main.vue"
 
 export default new Router({
   mode: 'history',
@@ -26,10 +28,12 @@ export default new Router({
         {
           path: "home/", // 首页 登录页
           component: Login,
+          name: 'Login',
         },
         {
           path: "task-list/", // 任务列表页
           component: TaskList,
+          name: 'TaskList'
         },
         {
           path: "settings/",
@@ -38,13 +42,27 @@ export default new Router({
             {
               path: "",
               component: SettingsMain,
+              name: "Settings",
             },
             {
               path: "footer-view-setting/",
               component: FooterViewSetting,
+              name: "设置选项卡"
             }
           ]
         },
+        {
+          path: "user/",
+          component: UserHome,
+          children: [
+            {
+              path: "",
+              component: UserHomeMain,
+              name: "个人主页",
+            }
+          ]
+
+        }
       ]
     },
     

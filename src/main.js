@@ -15,6 +15,12 @@ if ('addEventListener' in document) {
     }, false);
 }
 
+router.beforeEach((to, from, next) => {
+  console.log(`to.name: ${to.name}`)
+  store.commit("changeCurrentView", to.name);
+  next();
+})
+
 new Vue({
   router,
   store,

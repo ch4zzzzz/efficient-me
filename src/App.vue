@@ -1,15 +1,10 @@
 <template>
   <div id="app">
-   
-    <router-view class="main-view"></router-view>
+    <keep-alive>
+      <router-view class="main-view"></router-view>
+    </keep-alive>
 
-    <Header :title="title">
-      <template #sidebar>
-        <a v-if="isTaskList" @click="sidebarToggle" id="sidebarOpenButton">
-        <!-- <a @click="openSidebar"> -->
-          <span class="iconfont icon-icon_threeline_fill"></span>
-        </a>
-      </template>
+    <Header>
     </Header>
     <Footer/>
   </div>
@@ -19,9 +14,6 @@
 import Header from "./components/common/header/Header.vue"
 import Footer from "./components/common/footer/Footer.vue"
 import Vue from "vue";
-import ClickOutSide from 'vue-v-clickoutside'
-Vue.directive('clickoutside', ClickOutSide);
-
 
 export default {
   name: "App",
@@ -30,35 +22,19 @@ export default {
     Header,
   },
   computed: {
-    title: function(){
-      let currentView = this.$store.state.currentView;
-      if(currentView === "TaskList"){
-        return this.$store.state.taskFolder;
-      }
-      console.log(`Current view: ${currentView}`)
-      return currentView;
-    },
-    isTaskList: function(){
-      return this.$store.state.currentView==="TaskList";
-    }
+
   },
-  methods: {
-    sidebarToggle(){
-      this.$store.commit("sidebarToggle");
-    }
-  },
-  updated: function(){
-    console.log(`Current view: ${this.title}`);
-  }
+
 }
 </script>
 
-<style>
+<style scoped="scoped">
 #app {
   height: 100%;
+  touch-action: none;
 }
 
 .main-view {
-  padding-top: 1rem;
+  padding-top: 1.5rem;
 }
 </style>

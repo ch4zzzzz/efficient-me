@@ -1,15 +1,13 @@
 <template>
-  <section id="settings">
+  <section id="user-home">
     <router-view></router-view>
-
   </section>
 </template>
 
 <script>
 export default {
-  name: "Settings",
-
+  name: "UserHome",
 }
-
 </script>
 
+<style scoped="scoped"></style>

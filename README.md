@@ -41,8 +41,8 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 - [x] 登录页
 - [ ] 注册页
 - [ ] 找回密码页
-- [ ] 任务列表页
-- [ ] 任务文件夹页
+- [x] 任务列表页
+- [x] 任务文件夹侧边栏
   * 头像、用户名 -> 点击进入个人主页
   * 设置
   * 任务文件夹

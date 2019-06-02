@@ -1,5 +1,5 @@
 <template>
-  <section id="setting-main">
+  <section id="settings-main">
     <section id="settings-user-info">
       <img id="settings-user-photo" :src="user.photo" alt="photo">
       <span id="settings-username">

@@ -56,7 +56,7 @@ export default {
       .then(response => {
         this.taskFolders = response.data.folderList;
       });
-    document.addEventListener('click', this.documentClick);
+    document.addEventListener('click', this.documentClick, {passive: true});
   },
   destroyed: function(){
     document.removeEventListener('click', this.documentClick);
@@ -80,7 +80,6 @@ export default {
     changeFolder(folderName){
       console.log(folderName);
       this.$store.commit('changeFolder', folderName);
-      this.$store.commit('changeCurrentView', folderName);
     },
     turnToSettings(){
       this.$router.push("settings/");
@@ -91,6 +90,7 @@ export default {
         left: 0,
       };
       this.isOpen = true;
+      // document.addEventListener();
     },
     close(){
       console.log("close");
@@ -102,12 +102,16 @@ export default {
       let target = null;
       if(e && e.target){
         target = e.target;
-        console.log("got target");
       }
-      if(target.id !== 'sidebar' &&
-            this.isOpen &&
-            target.id !== 'sidebarOpenButton'){
+      let id = target.id;
+      console.log(`got target: ${id}`)
+      if(id !== 'sidebar' &&
+            id !== 'sidebarOpenButton' &&
+            id !== 'user-info' &&
+            this.isOpen){
         this.close(); 
+      } else {
+        this.open();
       }
     }
   }
@@ -126,6 +130,7 @@ export default {
   display: block;
   background-color: #c0c0c0;
   z-index: 1;
+  transition: 0.5s;
 }
 
 #user-info {

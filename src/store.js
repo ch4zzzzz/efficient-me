@@ -8,6 +8,10 @@ export default new Vuex.Store({
     taskFolder: "",
     currentView: "",
     showSidebar: false,
+    user: {
+      username: "",
+      photo: "",
+    }
   },
   mutations: {
     changeFolder(state, folderName) {
@@ -18,6 +22,9 @@ export default new Vuex.Store({
     },
     sidebarToggle(state) {
       state.showSidebar = !state.showSidebar;
+    },
+    sidebarShow(state) {
+      state.showSidebar = true;
     }
   },
   actions: {

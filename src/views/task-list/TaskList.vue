@@ -66,8 +66,6 @@ export default {
         this.allTasks = response.data.taskList;
       })
       .catch(error => console.log(`getTaskList error: ${error}`));
-    this.$store.commit("changeCurrentView", "TaskList");
-
   },
   data(){
     return {
