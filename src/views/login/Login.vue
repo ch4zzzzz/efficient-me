@@ -1,5 +1,5 @@
 <template>
-  <section id="login">
+  <section id="login" @submit.stop.prevent>
     <b-form id="login-form">
       <h1> {{appName}} </h1>
       <b-form-group class="label"
@@ -23,11 +23,13 @@
           v-model="form.password"
           required>
       </b-form-input>
-      <b-button class="button" type="submit" variant="primary">登录</b-button>
+
+      <b-button class="button" type="submit" variant="primary" @click="login">登录</b-button>
     </b-form>
     
     <!-- 注册和找回密码 -->
     <section id="other-links">
+
       <b-link class="link link-left" to="">注册账号</b-link>
       <b-link class="link link-right" to="">找回密码</b-link>
     </section>
@@ -39,6 +41,8 @@
 
 <script>
 import {appName} from "../../config/app.js";
+import axios from 'axios';
+import {Api} from '../../api/api.js';
 
 export default {
   name: 'Login',
@@ -48,9 +52,26 @@ export default {
       form: {
         username: "",
         password: "",
-      }
+      },
+      saveUser: false,
     }
   },
+  methods: {
+    login(){
+      axios
+        .post(Api.login)
+        .then(response => {
+          let data = response.data;
+          if(data.success){
+            this.$store.commit('setUser', data.user);
+            this.$router.replace("/task-list/");
+          }
+        })
+        .catch(error => {
+          console.log(error);
+        })
+    }
+  }
 }
 </script>
 
@@ -59,7 +80,7 @@ export default {
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -80%);
+  transform: translate(-50%, -75%);
   width: 80%;
 }
 

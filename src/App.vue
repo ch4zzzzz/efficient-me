@@ -4,7 +4,7 @@
       <router-view class="main-view"></router-view>
     </keep-alive>
 
-    <Header>
+    <Header v-show="!isLoginView">
     </Header>
     <Footer/>
   </div>
@@ -22,7 +22,9 @@ export default {
     Header,
   },
   computed: {
-
+    isLoginView(){
+      return this.$store.state.currentView==="Login"
+    }
   },
 
 }

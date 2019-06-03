@@ -23,6 +23,14 @@ Mock.mock(Api.getFolderList, {
 
 Mock.mock(Api.getUserInfo, {
   'username': '@cname',
-  'photo': 'https://github.com/ch4zzzzz/efficient-me/blob/master/src/assets/img/1.jpg',
+  'photo': 'https://github.com/ch4zzzzz/efficient-me/raw/master/src/assets/img/1.jpg',
 
+})
+
+Mock.mock(Api.login, {
+  'success': true,
+  'user': {
+    'username': '@cname',
+    'photo': 'https://github.com/ch4zzzzz/efficient-me/raw/master/src/assets/img/1.jpg',
+  }
 })

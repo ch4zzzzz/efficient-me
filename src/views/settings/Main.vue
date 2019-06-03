@@ -24,10 +24,12 @@ export default {
   name: "Main",
   data(){
     return {
-      user: {
-        username: "salamander",
-        photo: "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1558928507222&di=d9297e82c0f542dc21102132f2e88b77&imgtype=0&src=http%3A%2F%2Fimg3.duitang.com%2Fuploads%2Fitem%2F201503%2F10%2F20150310191646_5AuSC.jpeg",
-      },
+
+    }
+  },
+  computed: {
+    user(){
+      return this.$store.state.user;
     }
   },
   methods: {
