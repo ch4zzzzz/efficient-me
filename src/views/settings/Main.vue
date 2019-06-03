@@ -6,7 +6,9 @@
         {{user.username}}
       </span>
       <span id="settings-user-level">
-        <b-badge variant="light">4</b-badge>
+        <b-badge variant="light">
+          {{user.level}}
+        </b-badge>
       </span>
     </section>
     <section id="settings-list">

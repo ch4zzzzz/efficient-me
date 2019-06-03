@@ -4,8 +4,9 @@
   <section id="sidebar" :style="openStyle">
 
     <section id="user-info">
-      <img id="photo"
-        rounded="circle" :src="user.photo"/>
+      <img id="sidebar-photo"
+        rounded="circle" :src="user.photo"
+        @click="turnToUserHome"/>
       <div id="buttons">
         <span class="iconfont icon-icon_setting_fill button" @click="turnToSettings"></span>
       </div>
@@ -52,7 +53,7 @@ export default {
   name: "Sidebar",
   created: function(){
     axios
-      .post(Api.getFolderList)
+      .get(Api.getFolderList)
       .then(response => {
         this.taskFolders = response.data.folderList;
       });
@@ -84,6 +85,9 @@ export default {
     },
     turnToSettings(){
       this.$router.push("/settings/");
+    },
+    turnToUserHome(){
+      this.$router.push("/user/");
     },
     open(){
       console.log("open");
@@ -138,7 +142,7 @@ export default {
   margin-left: 0.6rem;
 }
 
-#photo {
+#sidebar-photo {
   width: 30%;
   height: 30%;
   border-radius: 50%;

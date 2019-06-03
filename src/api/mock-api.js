@@ -32,5 +32,18 @@ Mock.mock(Api.login, {
   'user': {
     'username': '@cname',
     'photo': 'https://github.com/ch4zzzzz/efficient-me/raw/master/src/assets/img/1.jpg',
+    'level': 4,
+  }
+})
+
+Mock.mock(Api.getSelfInfo, {
+  'success': true,
+  'user': {
+    'username': '@cname',
+    'photo': 'https://github.com/ch4zzzzz/efficient-me/raw/master/src/assets/img/1.jpg',
+    'name': '@cname',
+    'introduction': '@csentence(4,10)',
+    'email': '@email',
+    
   }
 })

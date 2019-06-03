@@ -10,4 +10,8 @@ export default {
 }
 </script>
 
-<style scoped="scoped"></style>
+<style scoped="scoped">
+#user-home {
+  height: 100%;
+}
+</style>

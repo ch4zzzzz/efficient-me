@@ -61,7 +61,7 @@ export default {
   },
   created: function(){
     axios
-      .post(Api.getTaskList)
+      .get(Api.getTaskList)
       .then(response => {
         this.allTasks = response.data.taskList;
       })

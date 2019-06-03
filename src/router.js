@@ -11,6 +11,7 @@ import {default as SettingsMain} from "./views/settings/Main.vue"
 import FooterViewSetting from "./views/settings/children/FooterViewSetting.vue"
 import UserHome from "./views/user-home/UserHome.vue"
 import {default as UserHomeMain} from "./views/user-home/Main.vue"
+import SelfInfo from "./views/user-home/children/SelfInfo.vue"
 
 export default new Router({
   mode: 'history',
@@ -59,6 +60,11 @@ export default new Router({
               path: "",
               component: UserHomeMain,
               name: "个人主页",
+            },
+            {
+              path: "self-info/",
+              component: SelfInfo,
+              name: "账户",
             }
           ]
 

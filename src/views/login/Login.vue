@@ -43,6 +43,7 @@
 import {appName} from "../../config/app.js";
 import axios from 'axios';
 import {Api} from '../../api/api.js';
+import {setStore} from '../../config/myLocalStorage.js';
 
 export default {
   name: 'Login',
@@ -58,14 +59,23 @@ export default {
   },
   methods: {
     login(){
+      let form = this.form;
+      let username = form.username;
+      let password = form.password;
       axios
-        .post(Api.login)
+        .post(Api.login, {
+          username,
+          password,
+        })
         .then(response => {
-          let data = response.data;
+          let data = response.data
+          let user = data.user;
           if(data.success){
-            this.$store.commit('setUser', data.user);
+            this.$store.commit('setUser', user);
             this.$router.replace("/task-list/");
+            setStore('username', user.username);
           }
+
         })
         .catch(error => {
           console.log(error);

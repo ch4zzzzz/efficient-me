@@ -5,6 +5,7 @@ const Api = {
   getTaskList: baseUrl+"getTaskList",
   getFolderList: baseUrl+"getFolderList",
   getUserInfo: baseUrl+"getUserInfo",
+  getSelfInfo: baseUrl+"getSelfInfo",
 }
 
 export {
