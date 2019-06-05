@@ -166,6 +166,7 @@ export default {
   watch: {
     showSidebar: function(){
       if(this.showSidebar==true){
+        console.log("TaskList: Sidebar open")
         this.$refs.Sidebar.open();
       }
     }

@@ -4,7 +4,7 @@
     <SelfInfoItem :item="{name: itemNames[itemList[1]]}">
       <img :src="user[itemList[1]]" alt="头像" id="self-info-photo">
     </SelfInfoItem>
-    <SelfInfoItem v-for="item in itemList.slice(2)" :item="{name: itemNames[item], content: user[item]}"></SelfInfoItem>
+    <SelfInfoItem v-for="item in itemList.slice(2)" :key="itemNames[item]" :item="{name: itemNames[item], content: user[item]}"/>
     <!-- <SelfInfoItem id="self-info-name"/> -->
     <!-- <SelfInfoItem id="self-info-intro"/> -->
     <!-- <SelfInfoItem id="self-info-email"/> -->

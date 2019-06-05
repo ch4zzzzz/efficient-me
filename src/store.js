@@ -23,6 +23,9 @@ export default new Vuex.Store({
     sidebarShow(state) {
       state.showSidebar = true;
     },
+    sidebarHide(state) {
+      state.showSidebar = false;
+    },
     setUser(state, user){
       state.user = user;
     }

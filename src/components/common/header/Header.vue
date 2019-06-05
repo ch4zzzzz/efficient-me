@@ -46,6 +46,7 @@ export default {
     sidebarShow(){
       console.log("sidebarShow")
       this.$store.commit("sidebarShow");
+      console.log(this.$store.state.showSidebar);
     }
   },
   updated: function(){

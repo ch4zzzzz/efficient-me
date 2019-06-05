@@ -1,5 +1,5 @@
 <template>
-  <b-list-group-item class="item">
+  <b-list-group-item class="item" @click="edit">
     <span class="item-name">
       {{item.name}}
     </span>
@@ -15,6 +15,11 @@ export default {
   name: "SelfInfoItem",
   props: {
     item: Object,
+  },
+  methods: {
+    edit(){
+      console.log("edit")
+    }
   }
 }
 </script>

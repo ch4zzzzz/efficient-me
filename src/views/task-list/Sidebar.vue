@@ -57,10 +57,10 @@ export default {
       .then(response => {
         this.taskFolders = response.data.folderList;
       });
-    document.addEventListener('click', this.documentClick, {passive: true});
+
   },
   destroyed: function(){
-    document.removeEventListener('click', this.documentClick);
+
   },
   props: {
     
@@ -95,12 +95,14 @@ export default {
         left: 0,
       };
       this.isOpen = true;
+      document.addEventListener('click', this.documentClick, {passive: true});
       // document.addEventListener();
     },
     close(){
       console.log("close");
       this.openStyle = {};
       this.isOpen = false;
+      document.removeEventListener('click', this.documentClick);
     },
     documentClick(e){
       console.log("documentClick");
@@ -114,6 +116,7 @@ export default {
             id !== 'sidebarOpenButton' &&
             id !== 'user-info' &&
             this.isOpen){
+        this.$store.commit("sidebarHide");
         this.close(); 
       } else if(id == 'sidebar-open-button-icon') {
         this.open();
