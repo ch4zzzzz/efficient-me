@@ -28,6 +28,9 @@ export default new Vuex.Store({
     },
     setUser(state, user){
       state.user = user;
+    },
+    modifyUser(state, itemName, newValue){
+      state.uesr[itemName] = newValue;
     }
   },
   actions: {

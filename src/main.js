@@ -3,18 +3,11 @@ import './plugins/bootstrap-vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
-import FastClick from 'fastclick'
 
 import './api/mock-api.js'
 
 Vue.config.productionTip = false
 
-// FastClick
-if ('addEventListener' in document) {
-    document.addEventListener('DOMContentLoaded', function() {
-        FastClick.attach(document.body);
-    }, false);
-}
 
 // 处理页面跳转
 router.beforeEach((to, from, next) => {

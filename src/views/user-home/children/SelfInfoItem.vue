@@ -10,7 +10,7 @@
        <img :src="item.content" alt="头像" class="self-info-photo">
     </span>
     
-    <ItemEdit ref="item-edit-modal"></ItemEdit>
+    <ItemEdit ref="item-edit-modal" :updateApiName="updateApiName"></ItemEdit>
   </b-list-group-item>
 </template>
 
@@ -24,6 +24,10 @@ export default {
     type: {
       type: String,
       default: 'text',
+    },
+    updateApiName: {
+      type: String,
+      default: "",
     }
   },
   components: {

@@ -1,9 +1,10 @@
 <template>
   <b-list-group id="self-info-group" v-if="user">
     <SelfInfoItem :item="{name: itemNames[itemList[0]], content: user[itemList[0]]}" type="invariant"/>
-    <SelfInfoItem :item="{name: itemNames[itemList[1]], content: user[itemList[1]]}" type="img">
+    <SelfInfoItem :item="{name: itemNames[itemList[1]], content: user[itemList[1]]}" type="img" :updateApiName="itemList[1]">
     </SelfInfoItem>
-    <SelfInfoItem v-for="item in itemList.slice(2)" :key="itemNames[item]" :item="{name: itemNames[item], content: user[item]}"/>
+    <SelfInfoItem v-for="item in itemList.slice(2)" :key="itemNames[item]" :item="{name: itemNames[item], content: user[item]}"
+        :updateApiName="item"/>
     <!-- <SelfInfoItem id="self-info-name"/> -->
     <!-- <SelfInfoItem id="self-info-intro"/> -->
     <!-- <SelfInfoItem id="self-info-email"/> -->
@@ -56,5 +57,7 @@ export default {
 </script>
 
 <style scoped="scoped">
-
+#self-info-group{
+  touch-action: none;
+}
 </style>
