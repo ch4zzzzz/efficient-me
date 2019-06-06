@@ -3,22 +3,41 @@
     <span class="item-name">
       {{item.name}}
     </span>
-    <span v-if="item.content" class="item-content">
+    <span v-if="(type==='text')&&item.content" class="item-content">
       {{item.content}}
     </span>
-    <slot></slot>
+    <span v-else-if="(type==='img')&&item.content">
+       <img :src="item.content" alt="头像" class="self-info-photo">
+    </span>
+    
+    <ItemEdit ref="item-edit-modal"></ItemEdit>
   </b-list-group-item>
 </template>
 
 <script>
+import ItemEdit from './ItemEdit.vue'
+
 export default {
   name: "SelfInfoItem",
   props: {
     item: Object,
+    type: {
+      type: String,
+      default: 'text',
+    }
+  },
+  components: {
+    ItemEdit,
   },
   methods: {
     edit(){
-      console.log("edit")
+      let type = this.type;
+      if(type==='invariant'){
+        console.log("invariant");
+      } else {
+        console.log("edit");
+        this.$refs['item-edit-modal'].show();
+      }
     }
   }
 }
@@ -43,5 +62,12 @@ export default {
   margin-right: 1rem;
 }
 
+.self-info-photo {
+  height: 2rem;
+  width: auto;
+  border-radius: 50%;
+  float: right;
+  margin-right: 1rem;
+}
 
 </style>

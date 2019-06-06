@@ -1,8 +1,7 @@
 <template>
   <b-list-group id="self-info-group" v-if="user">
-    <SelfInfoItem :item="{name: itemNames[itemList[0]], content: user[itemList[0]]}"/>
-    <SelfInfoItem :item="{name: itemNames[itemList[1]]}">
-      <img :src="user[itemList[1]]" alt="头像" id="self-info-photo">
+    <SelfInfoItem :item="{name: itemNames[itemList[0]], content: user[itemList[0]]}" type="invariant"/>
+    <SelfInfoItem :item="{name: itemNames[itemList[1]], content: user[itemList[1]]}" type="img">
     </SelfInfoItem>
     <SelfInfoItem v-for="item in itemList.slice(2)" :key="itemNames[item]" :item="{name: itemNames[item], content: user[item]}"/>
     <!-- <SelfInfoItem id="self-info-name"/> -->
@@ -57,11 +56,5 @@ export default {
 </script>
 
 <style scoped="scoped">
-#self-info-photo {
-  height: 2rem;
-  width: auto;
-  border-radius: 50%;
-  float: right;
-  margin-right: 1rem;
-}
+
 </style>

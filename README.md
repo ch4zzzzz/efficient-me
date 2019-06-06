@@ -46,7 +46,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
   * 头像、用户名 -> 点击进入个人主页
   * 设置
   * 任务文件夹
-- [ ] 个人主页
+- [x] 个人主页
   * 头像
   * 用户名
   * 编辑 -> 编辑个人信息
