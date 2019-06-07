@@ -10,15 +10,34 @@
        <img :src="item.content" alt="头像" class="self-info-photo">
     </span>
     
-    <ItemEdit ref="item-edit-modal" :updateApiName="updateApiName"></ItemEdit>
+    
+    <b-modal class="item-edit" ref='item-edit-modal' centered>
+      <template slot="modal-header">
+        <h6>
+          {{'修改'+item.name}}
+        </h6>
+      </template>
+      <b-form-input placeholder="" ref="input" v-model="content"/>
+      <template slot="modal-footer" slot-scope="{ ok }">
+        <b-button size="sm" variant="success" @click="update();ok()">
+          提交
+        </b-button>
+      </template>
+    </b-modal>
+
   </b-list-group-item>
 </template>
 
 <script>
-import ItemEdit from './ItemEdit.vue'
+import axios from 'axios'
 
 export default {
   name: "SelfInfoItem",
+  data(){
+    return {
+      content: "",
+    }
+  },
   props: {
     item: Object,
     type: {
@@ -30,9 +49,6 @@ export default {
       default: "",
     }
   },
-  components: {
-    ItemEdit,
-  },
   methods: {
     edit(){
       let type = this.type;
@@ -42,6 +58,32 @@ export default {
         console.log("edit");
         this.$refs['item-edit-modal'].show();
       }
+    },
+    show() {
+      this.$refs['modal'].show();
+    },
+    update() {
+      let newValue = this.content;
+      let updateApiName = this.updateApiName;
+      axios
+        .post(`modifySelfInfo=${updateApiName}`, {'value': newValue})
+        .then(response => {
+          let data = response.data;
+          console.log(data.success);
+          return data.success;
+        })
+        .then(resolve => {
+          if(resolve===true){
+            this.item.content = newValue;
+            this.content = "";
+          }
+        })
+    },
+  },
+  watch: {
+    ret(){
+      this.item.content = this.ret;
+      console.log(`${this.item.content} ${this.ret}`)
     }
   }
 }
@@ -63,7 +105,7 @@ export default {
 .item-content {
   display: inline-block;
   float: right;
-  margin-right: 1rem;
+  /*margin-right: 1rem;*/
 }
 
 .self-info-photo {
@@ -71,7 +113,7 @@ export default {
   width: auto;
   border-radius: 50%;
   float: right;
-  margin-right: 1rem;
+  /*margin-right: 1rem;*/
 }
 
 </style>

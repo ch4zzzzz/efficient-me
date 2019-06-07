@@ -21,7 +21,7 @@ Mock.mock(Api.getFolderList, {
   }]
 })
 
-Mock.mock(Api.getUserInfo, {
+Mock.mock(Api.getUser, {
   'username': '@cname',
   'photo': 'https://github.com/ch4zzzzz/efficient-me/raw/master/src/assets/img/1.jpg',
 
@@ -38,7 +38,7 @@ Mock.mock(Api.login, {
 
 Mock.mock(Api.getSelfInfo, {
   'success': true,
-  'user': {
+  'userInfo': {
     'username': '@cname',
     'photo': 'https://github.com/ch4zzzzz/efficient-me/raw/master/src/assets/img/1.jpg',
     'name': '@cname',
@@ -46,4 +46,8 @@ Mock.mock(Api.getSelfInfo, {
     'email': '@email',
     
   }
+})
+
+Mock.mock(Api.modifySelfInfo, {
+  'success': true,
 })

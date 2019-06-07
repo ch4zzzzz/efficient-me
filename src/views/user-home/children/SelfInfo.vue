@@ -27,7 +27,8 @@ export default {
       .then(response => {
         let data = response.data;
         if(data.success){
-          this.user = data.user;
+          this.user = {...data.userInfo};
+          console.log(Object.getOwnPropertyNames(this.user));
         }
       })
   },
