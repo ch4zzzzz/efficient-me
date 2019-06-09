@@ -1,7 +1,7 @@
 <template>
   <b-list-group-item class="task">
     <b-form-checkbox
-      :id="task.name"
+      :id="`Task-${task.id.toString()}`"
       :name="task.name"
       v-model="task.complete"
       class="task-checkbox"
@@ -17,11 +17,11 @@
       <br>
 
       <span class="task-date">
-        {{task.date}}
+        {{date}}
       </span>
 
       <span class="folder-name">
-        {{task.folderName}}
+        {{task.folderName || "收集箱"}}
       </span>
     </span>
 
@@ -31,6 +31,26 @@
 <script>
 export default {
   name: 'Task',
+  created: function(){
+    let date = new Date(parseInt(this.task.date));
+    this.date = (date => {
+      let year = date.getFullYear();
+      let month = date.getMonth() + 1;
+      if(month.toString().length<2){
+        month = '0'+month;
+      }
+      let day = date.getDate();
+      if(day.toString().length<2){
+        day = '0'+day;
+      }
+      return `${year}-${month}-${day}`;
+    })(date);
+  },
+  data(){
+    return {
+      date: "",
+    }
+  },
   props: {
     task: Object
   }

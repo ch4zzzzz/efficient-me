@@ -5,10 +5,6 @@
     </SelfInfoItem>
     <SelfInfoItem v-for="item in itemList.slice(2)" :key="itemNames[item]" :item="{name: itemNames[item], content: user[item]}"
         :updateApiName="item"/>
-    <!-- <SelfInfoItem id="self-info-name"/> -->
-    <!-- <SelfInfoItem id="self-info-intro"/> -->
-    <!-- <SelfInfoItem id="self-info-email"/> -->
-    <!-- <SelfInfoItem id="self-info-change-password"/> -->
   </b-list-group>
 </template>
 

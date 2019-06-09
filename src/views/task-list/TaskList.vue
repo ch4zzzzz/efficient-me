@@ -23,29 +23,22 @@
       <span id="add-task-icon" class="iconfont icon-icon_add"></span>
     </div>
     
-
-<!--     <b-form id="new-task-form" v-show="newTaskForm">
-      <b-form-input type="text" id="new-task" v-model="newTask.content" ref="newTask"
-          v-focus="state.taskContentInput"
-          @focus="taskContentInputFocus"
-          @blur="taskContentInputToggle"
-          placeholde="what is next to do"/>
-      <b-form-input type="text" v-model="newTask.folderName" 
-          @focus="taskFolderNameInputToggle"
-          @blur="taskFolderNameInputToggle"/>
-      <span id="task-list-date-input" class="iconfont icon-icon_calendar_fill"></span>
-      <b-form-input type="date" v-model="newTask.date"
-          @focus="taskDateInputToggle"
-          @blur="taskDateInputToggle"
-          placeholde="日期"/> -->
     <b-modal id="new-task-form-modal" centered>
+      <template slot="modal-header">
+        <h6>添加新任务</h6>
+      </template>
       <b-form id="new-task-form">
         <b-form-input type="text" id="new-task" v-model="newTask.content" ref="newTask"
             placeholde="what is next to do"/>
-        <b-form-select :value="newTask.folderName" :options="taskFolderOptions"/>
+        <b-form-select v-model="newTask.folderName" :options="taskFolderOptions"/>
         <b-form-input type="date" v-model="newTask.date"
             placeholde="日期"/>
       </b-form>
+      <template slot="modal-footer" slot-scope="{ ok }">
+        <b-button size="sm" variant="success" @click="commitNewTask();ok()">
+          添加
+        </b-button>
+      </template>
     </b-modal>
       
  
@@ -85,7 +78,7 @@ export default {
         this.taskFolders = response.data.folderList;
       });
     let now = new Date();
-    this.newTask.date = (now => {
+    this.defaultDate = (now => {
       let year = now.getFullYear();
       let month = now.getMonth() + 1;
       if(month.toString().length<2){
@@ -97,6 +90,7 @@ export default {
       }
       return `${year}-${month}-${day}`;
     })(now);
+    this.newTask.date = this.defaultDate;
   },
   data(){
     return {
@@ -108,9 +102,11 @@ export default {
 
       },
       newTask: {
+        content: "",
         date: "",
-        folderName: "",
+        folderName: null,
       },
+      defaultDate: "",
       state: {
         taskContentInput: false,
         taskDateInput: false,
@@ -135,39 +131,27 @@ export default {
       this.newTaskForm = true;
       this.$bvModal.show("new-task-form-modal");
     },
-
-    taskContentInputFocus() {
-      this.state.taskContentInput = true;
-    },
-    taskContentInputToggle() {
-      if(this.state.taskContentInput){
-        setTimeout(() => {
-          this.state.taskContentInput = false;
-        }, 100);
-      } else {
-        this.state.taskContentInput = true;
+    commitNewTask(){
+      let len = this.allTasks.length;
+      let newTask = this.newTask;
+      let folderName = "";
+      if(newTask.folderName!==null){
+        folderName = this.taskFolderOptions[newTask.folderName].text;
       }
-      console.log(this.newTaskForm);
-    },
-    taskDateInputToggle() {
-      if(this.state.taskDateInput){
-        setTimeout(() => {
-          this.state.taskDateInput = false;
-        }, 300);
-      } else {
-        this.state.taskDateInput = true;
+      newTask = {
+        'id': this.allTasks[len-1].id+1,
+        'name': newTask.content,
+        'date': (new Date(newTask.date)).getTime(),
+        'folderName': folderName,
+        'complete': false,
       }
-      console.log(this.newTaskForm);
+      this.allTasks.push(newTask);
+      this.defaultNewTaskForm();
     },
-    taskFolderNameInputToggle() {
-      if(this.state.taskFolderNameInput){
-        setTimeout(() => {
-          this.state.taskFolderNameInput = false;
-        }, 300);
-      } else {
-        this.state.taskFolderNameInput = true;
-      }
-      console.log(this.newTaskForm);
+    defaultNewTaskForm(){
+      this.newTask.content = "";
+      this.newTask.folderName = null;
+      this.newTask.date = this.defaultDate;
     },
     closeSidebar(){
       console.log("begin");
@@ -196,9 +180,9 @@ export default {
     },
     taskFolderOptions: function(){
       let taskFolders = this.taskFolders;
-      let options = {};
+      let options = [{value: null, text: "收集箱"}];
       for(let i=0,len=taskFolders.length;i<len;i++){
-        options[`${i+1}`] = taskFolders[i].folderName;
+        options.push({value: i+1,text: taskFolders[i].folderName});
       }
       console.log(options)
       return options;
