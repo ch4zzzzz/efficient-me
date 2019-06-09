@@ -1,7 +1,7 @@
 <template>
   <b-list-group id="self-info-group" v-if="user">
-    <SelfInfoItem :item="{name: itemNames[itemList[0]], content: user[itemList[0]]}" type="invariant"/>
-    <SelfInfoItem :item="{name: itemNames[itemList[1]], content: user[itemList[1]]}" type="img" :updateApiName="itemList[1]">
+    <SelfInfoItem :item="{name: itemNames[itemList[0]], content: user[itemList[0]]}" type="text" :invariant="true"/>
+    <SelfInfoItem :item="{name: itemNames[itemList[1]], content: user[itemList[1]]}" type="img" :invariant="true" :updateApiName="itemList[1]">
     </SelfInfoItem>
     <SelfInfoItem v-for="item in itemList.slice(2)" :key="itemNames[item]" :item="{name: itemNames[item], content: user[item]}"
         :updateApiName="item"/>

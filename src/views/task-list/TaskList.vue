@@ -18,27 +18,40 @@
     </transition-group>
 
 
-    <div id="add-task-button" v-show="!newTaskForm" @click="addTask">
+    <div id="add-task-button" @click="addTask">
       <b-img id="add-task-background" v-bind="imgConfig" rounded="circle" alt="Circle image"></b-img>
       <span id="add-task-icon" class="iconfont icon-icon_add"></span>
     </div>
     
 
-    <b-form id="new-task-form" v-show="newTaskForm">
+<!--     <b-form id="new-task-form" v-show="newTaskForm">
       <b-form-input type="text" id="new-task" v-model="newTask.content" ref="newTask"
           v-focus="state.taskContentInput"
           @focus="taskContentInputFocus"
-          @blur="taskContentInputToggle"/>
+          @blur="taskContentInputToggle"
+          placeholde="what is next to do"/>
       <b-form-input type="text" v-model="newTask.folderName" 
           @focus="taskFolderNameInputToggle"
           @blur="taskFolderNameInputToggle"/>
+      <span id="task-list-date-input" class="iconfont icon-icon_calendar_fill"></span>
       <b-form-input type="date" v-model="newTask.date"
           @focus="taskDateInputToggle"
-          @blur="taskDateInputToggle"/>
-    </b-form>
+          @blur="taskDateInputToggle"
+          placeholde="日期"/> -->
+    <b-modal id="new-task-form-modal" centered>
+      <b-form id="new-task-form">
+        <b-form-input type="text" id="new-task" v-model="newTask.content" ref="newTask"
+            placeholde="what is next to do"/>
+        <b-form-select :value="newTask.folderName" :options="taskFolderOptions"/>
+        <b-form-input type="date" v-model="newTask.date"
+            placeholde="日期"/>
+      </b-form>
+    </b-modal>
+      
+ 
 
     
-    <Sidebar ref="Sidebar"></Sidebar>
+    <Sidebar ref="Sidebar" :taskFolders="taskFolders"></Sidebar>
 
     
   </section>
@@ -66,6 +79,24 @@ export default {
         this.allTasks = response.data.taskList;
       })
       .catch(error => console.log(`getTaskList error: ${error}`));
+    axios
+      .get(Api.getFolderList)
+      .then(response => {
+        this.taskFolders = response.data.folderList;
+      });
+    let now = new Date();
+    this.newTask.date = (now => {
+      let year = now.getFullYear();
+      let month = now.getMonth() + 1;
+      if(month.toString().length<2){
+        month = '0'+month;
+      }
+      let day = now.getDate();
+      if(day.toString().length<2){
+        day = '0'+day;
+      }
+      return `${year}-${month}-${day}`;
+    })(now);
   },
   data(){
     return {
@@ -76,14 +107,18 @@ export default {
         photo: "",
 
       },
-      newTask: {},
+      newTask: {
+        date: "",
+        folderName: "",
+      },
       state: {
         taskContentInput: false,
         taskDateInput: false,
         taskFolderNameInput: false, 
       },
-
+      newTaskForm: false,
       imgConfig: { blank: true, blankColor: '#8a2be2', width: 50, height: 50, class: 'm1' },
+      taskFolders: [],
     }
   },
   methods: {
@@ -96,7 +131,9 @@ export default {
       return tasks.filter(task => task.folderName===folderName);
     },
     addTask(){
-      this.state.taskContentInput = true;
+      // this.state.taskContentInput = true;
+      this.newTaskForm = true;
+      this.$bvModal.show("new-task-form-modal");
     },
 
     taskContentInputFocus() {
@@ -106,7 +143,7 @@ export default {
       if(this.state.taskContentInput){
         setTimeout(() => {
           this.state.taskContentInput = false;
-        }, 300);
+        }, 100);
       } else {
         this.state.taskContentInput = true;
       }
@@ -151,16 +188,20 @@ export default {
     uncompletedTasks: function(){
       return this.tasks.filter(task => !task.complete);
     },
-    newTaskForm: function(){
-      let state = this.state;
-      return state.taskContentInput || state.taskDateInput || 
-          state.taskFolderNameInput;
-    },
     folderName: function(){
       return this.$store.state.taskFolder;
     },
     showSidebar: function(){
       return this.$store.state.showSidebar;
+    },
+    taskFolderOptions: function(){
+      let taskFolders = this.taskFolders;
+      let options = {};
+      for(let i=0,len=taskFolders.length;i<len;i++){
+        options[`${i+1}`] = taskFolders[i].folderName;
+      }
+      console.log(options)
+      return options;
     }
   },
   watch: {
@@ -169,7 +210,7 @@ export default {
         console.log("TaskList: Sidebar open")
         this.$refs.Sidebar.open();
       }
-    }
+    },
   },
   directives: {
     focus: {
@@ -235,11 +276,16 @@ export default {
 
 #new-task-form {
   width: 100%;
-  position: fixed;
+  /*position: fixed;*/
   bottom: 0;
+  background-color: white;
 }
 
 #new-task {
   width: 100%;
+}
+
+#task-list-date-input {
+  font-size: 2rem;
 }
 </style>

@@ -45,30 +45,26 @@
 </template>
 
 <script>
-import axios from 'axios';
 import {Api} from '../../api/api.js';
 
 
 export default {
   name: "Sidebar",
   created: function(){
-    axios
-      .get(Api.getFolderList)
-      .then(response => {
-        this.taskFolders = response.data.folderList;
-      });
+    
 
   },
   destroyed: function(){
 
   },
   props: {
-    
+    taskFolders: {
+      type: Array,
+    }
 
   },
   data() {
     return {
-      taskFolders: [],
       openStyle: {},
       isOpen: false,
     }
@@ -96,7 +92,6 @@ export default {
       };
       this.isOpen = true;
       document.addEventListener('click', this.documentClick, {passive: true});
-      // document.addEventListener();
     },
     close(){
       console.log("close");
@@ -115,10 +110,12 @@ export default {
       if(id !== 'sidebar' &&
             id !== 'sidebarOpenButton' &&
             id !== 'user-info' &&
+            id !== 'sidebar-open-button-icon' &&
             this.isOpen){
         this.$store.commit("sidebarHide");
+        this.isOpen = false;
         this.close(); 
-      } else if(id == 'sidebar-open-button-icon') {
+      } else if(id === 'sidebar-open-button-icon') {
         this.open();
       }
     }

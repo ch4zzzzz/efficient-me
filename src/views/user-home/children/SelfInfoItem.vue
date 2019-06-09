@@ -11,7 +11,7 @@
     </span>
     
     
-    <b-modal class="item-edit" ref='item-edit-modal' centered>
+    <b-modal v-if="type==='text'" class="item-edit" ref='item-edit-modal' centered>
       <template slot="modal-header">
         <h6>
           {{'修改'+item.name}}
@@ -23,6 +23,20 @@
           提交
         </b-button>
       </template>
+    </b-modal>
+
+    <b-modal v-else-if="type==='img'" class="photo-edit" ref="item-edit-modal" centered hide-footer>
+      <template slot="modal-header">
+        <h6>
+          {{'修改'+item.name}}
+        </h6>
+      </template>
+      <ul class="ul">
+        <li class="photo-edit-li">拍照</li>
+        <li class="photo-edit-li"><input type="file" name="selectLocalImg" placeholder="选择本地图片"></li>
+      </ul>
+      
+ 
     </b-modal>
 
   </b-list-group-item>
@@ -47,12 +61,16 @@ export default {
     updateApiName: {
       type: String,
       default: "",
+    },
+    invariant: {
+      type: Boolean,
+      default: false,
     }
   },
   methods: {
     edit(){
-      let type = this.type;
-      if(type==='invariant'){
+      let invariant = this.invariant;
+      if(invariant===true){
         console.log("invariant");
       } else {
         console.log("edit");
@@ -114,6 +132,17 @@ export default {
   border-radius: 50%;
   float: right;
   /*margin-right: 1rem;*/
+}
+
+.ul {
+  padding: 0;
+  margin-left: 1rem;
+  font-size: 1.2rem;
+}
+
+.photo-edit-li {
+  list-style-type: none;
+  margin-bottom: 1rem;
 }
 
 </style>
