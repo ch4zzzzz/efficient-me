@@ -6,7 +6,8 @@ const Api = {
   getFolderList: baseUrl+"getFolderList",
   getUser: baseUrl+"getUser",
   getSelfInfo: baseUrl+"getSelfInfo",
-  modifySelfInfo: new RegExp('^'+baseUrl+'modifySelfInfo'+'=[a-zA-Z]*$')
+  modifySelfInfo: new RegExp('^'+baseUrl+'modifySelfInfo'+'=[a-zA-Z]*$'),
+  addTask: baseUrl+"addTask",
 }
 
 export {

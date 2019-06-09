@@ -69,13 +69,17 @@ export default {
     axios
       .get(Api.getTaskList)
       .then(response => {
-        this.allTasks = response.data.taskList;
+        if(response.data.success===true){
+          this.allTasks = response.data.taskList;
+        }
       })
       .catch(error => console.log(`getTaskList error: ${error}`));
     axios
       .get(Api.getFolderList)
       .then(response => {
-        this.taskFolders = response.data.folderList;
+        if(response.data.success===true){
+          this.taskFolders = response.data.folderList;
+        }
       });
     let now = new Date();
     this.defaultDate = (now => {
@@ -145,8 +149,14 @@ export default {
         'folderName': folderName,
         'complete': false,
       }
-      this.allTasks.push(newTask);
-      this.defaultNewTaskForm();
+      axios
+        .post("addTask", newTask)
+        .then(response => {
+          if(response.data.success===true){
+            this.allTasks.push(newTask);
+            this.defaultNewTaskForm();
+          }
+        })
     },
     defaultNewTaskForm(){
       this.newTask.content = "";

@@ -6,6 +6,7 @@ import {Api} from "./api.js"
 
 
 Mock.mock(Api.getTaskList, {
+  'success': true,
   'taskList|2-10': [{
     'id|+1': 1,
     'name': '@csentence(4,12)',
@@ -16,6 +17,7 @@ Mock.mock(Api.getTaskList, {
 })
 
 Mock.mock(Api.getFolderList, {
+  'success': true,
   'folderList|2-5': [{
     'folderName': '@ctitle(2,5)'
   }]
@@ -49,5 +51,9 @@ Mock.mock(Api.getSelfInfo, {
 })
 
 Mock.mock(Api.modifySelfInfo, {
+  'success': true,
+})
+
+Mock.mock(Api.addTask, {
   'success': true,
 })
