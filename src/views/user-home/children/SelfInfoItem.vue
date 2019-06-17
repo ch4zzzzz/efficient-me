@@ -47,6 +47,9 @@ import axios from 'axios'
 
 export default {
   name: "SelfInfoItem",
+  created(){
+    this.content = this.item.content;
+  },
   data(){
     return {
       content: "",
@@ -84,7 +87,7 @@ export default {
       let newValue = this.content;
       let updateApiName = this.updateApiName;
       axios
-        .post(`modifySelfInfo=${updateApiName}`, {'value': newValue})
+        .post(`modifySelfInfo/${updateApiName}`, {'value': newValue})
         .then(response => {
           let data = response.data;
           console.log(data.success);
@@ -93,7 +96,8 @@ export default {
         .then(resolve => {
           if(resolve===true){
             this.item.content = newValue;
-            this.content = "";
+          } else {
+            this.content = this.item.content;
           }
         })
     },

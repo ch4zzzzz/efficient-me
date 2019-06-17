@@ -3,8 +3,9 @@ import './plugins/bootstrap-vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
+import axios from 'axios'
 
-import './api/mock-api.js'
+// import './api/mock-api.js'
 
 Vue.config.productionTip = false
 
@@ -16,8 +17,9 @@ router.beforeEach((to, from, next) => {
   next();
 })
 
+
+axios.defaults.baseURL = 'http://localhost:3000';
 // axios拦截器
-import axios from 'axios'
 axios.interceptors.request.use(function (config) {
     // Do something before request is sent
     config.headers['X-Requested-With'] = 'XMLHttpRequest';

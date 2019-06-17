@@ -70,7 +70,12 @@ export default {
       .get(Api.getTaskList)
       .then(response => {
         if(response.data.success===true){
-          this.allTasks = response.data.taskList;
+          let taskList = response.data.taskList;
+          taskList.forEach(element => {
+            this.allTasks.push(element);
+            // this.allTasks[this.allTasks.length-1].id = element._id;
+          })
+          // this.allTasks = taskList;
         }
       })
       .catch(error => console.log(`getTaskList error: ${error}`));
@@ -143,7 +148,6 @@ export default {
         folderName = this.taskFolderOptions[newTask.folderName].text;
       }
       newTask = {
-        'id': this.allTasks[len-1].id+1,
         'name': newTask.content,
         'date': (new Date(newTask.date)).getTime(),
         'folderName': folderName,
@@ -153,6 +157,7 @@ export default {
         .post("addTask", newTask)
         .then(response => {
           if(response.data.success===true){
+            newTask.id = response.data.id;
             this.allTasks.push(newTask);
             this.defaultNewTaskForm();
           }

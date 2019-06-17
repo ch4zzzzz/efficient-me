@@ -23,7 +23,7 @@ export default {
       .then(response => {
         let data = response.data;
         if(data.success){
-          this.user = {...data.userInfo};
+          this.user = {...data.user};
           console.log(Object.getOwnPropertyNames(this.user));
         }
       })

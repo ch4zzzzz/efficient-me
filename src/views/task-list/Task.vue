@@ -32,7 +32,7 @@
 export default {
   name: 'Task',
   created: function(){
-    let date = new Date(parseInt(this.task.date));
+    let date = new Date(this.task.date);
     this.date = (date => {
       let year = date.getFullYear();
       let month = date.getMonth() + 1;

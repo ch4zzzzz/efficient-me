@@ -4,9 +4,8 @@ const Api = {
   login: baseUrl+"login",
   getTaskList: baseUrl+"getTaskList",
   getFolderList: baseUrl+"getFolderList",
-  getUser: baseUrl+"getUser",
   getSelfInfo: baseUrl+"getSelfInfo",
-  modifySelfInfo: new RegExp('^'+baseUrl+'modifySelfInfo'+'=[a-zA-Z]*$'),
+  modifySelfInfo: new RegExp('^'+baseUrl+'modifySelfInfo'+'/[a-zA-Z]*$'),
   addTask: baseUrl+"addTask",
 }
 
