@@ -18,7 +18,7 @@ router.beforeEach((to, from, next) => {
 })
 
 
-axios.defaults.baseURL = 'http://localhost:3000';
+axios.defaults.baseURL = 'https://localhost';
 // axios拦截器
 axios.interceptors.request.use(function (config) {
     // Do something before request is sent

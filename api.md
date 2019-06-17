@@ -116,6 +116,36 @@ baseUrl
   }
   ```
 
+### 添加文件夹
+
+* 请求方式
+
+  `POST`
+
+* url
+
+  `'/addFolder'`
+
+* request body
+
+  ```javascript
+  {
+    folderName
+  }
+  ```
+
+* 返回示例
+
+  ```javascript
+  {
+    success: true,
+    type: 'ADD_FOLDER_SUCCESSFULLY',
+    message: 'Add folder successfully'
+  }
+  ```
+
+  
+
 ### 获取文件夹列表
 
 * 请求方式

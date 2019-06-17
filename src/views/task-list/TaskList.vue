@@ -23,7 +23,8 @@
       <span id="add-task-icon" class="iconfont icon-icon_add"></span>
     </div>
     
-    <b-modal id="new-task-form-modal" centered>
+    <b-modal id="new-task-form-modal" centered
+        @hidden="newTaskFormAlert=false">
       <template slot="modal-header">
         <h6>添加新任务</h6>
       </template>
@@ -32,10 +33,15 @@
             placeholde="what is next to do"/>
         <b-form-select v-model="newTask.folderName" :options="taskFolderOptions"/>
         <b-form-input type="date" v-model="newTask.date"
-            placeholde="日期"/>
+            placeholde="日期"
+            @focus="newTaskFormAlert=false"/>
       </b-form>
       <template slot="modal-footer" slot-scope="{ ok }">
-        <b-button size="sm" variant="success" @click="commitNewTask();ok()">
+        <span class="form-alert" 
+            v-show="newTaskFormAlert">
+          请输入清单名称
+        </span>
+        <b-button size="sm" variant="success" @click="commitNewTask">
           添加
         </b-button>
       </template>
@@ -44,7 +50,8 @@
  
 
     
-    <Sidebar ref="Sidebar" :taskFolders="taskFolders"></Sidebar>
+    <Sidebar ref="Sidebar" :taskFolders="taskFolders" 
+        @refreshFolderList="getFolderList"/>
 
     
   </section>
@@ -79,13 +86,7 @@ export default {
         }
       })
       .catch(error => console.log(`getTaskList error: ${error}`));
-    axios
-      .get(Api.getFolderList)
-      .then(response => {
-        if(response.data.success===true){
-          this.taskFolders = response.data.folderList;
-        }
-      });
+    this.getFolderList();
     let now = new Date();
     this.defaultDate = (now => {
       let year = now.getFullYear();
@@ -124,6 +125,7 @@ export default {
       newTaskForm: false,
       imgConfig: { blank: true, blankColor: '#8a2be2', width: 50, height: 50, class: 'm1' },
       taskFolders: [],
+      newTaskFormAlert: false,
     }
   },
   methods: {
@@ -144,6 +146,11 @@ export default {
       let len = this.allTasks.length;
       let newTask = this.newTask;
       let folderName = "";
+      if(newTask.content==="") {
+        this.newTaskFormAlert = true;
+        console.log("empty")
+        return;
+      }
       if(newTask.folderName!==null){
         folderName = this.taskFolderOptions[newTask.folderName].text;
       }
@@ -160,6 +167,7 @@ export default {
             newTask.id = response.data.id;
             this.allTasks.push(newTask);
             this.defaultNewTaskForm();
+            this.$bvModal.hide("new-task-form-modal");
           }
         })
     },
@@ -175,6 +183,15 @@ export default {
       if(state===true){
         this.$store.commit('sidebarToggle');
       }
+    },
+    getFolderList() {
+      axios
+        .get(Api.getFolderList)
+        .then(response => {
+          if(response.data.success===true){
+            this.taskFolders = response.data.folderList;
+          }
+        });
     }
   },
   computed: {
@@ -286,5 +303,9 @@ export default {
 
 #task-list-date-input {
   font-size: 2rem;
+}
+
+.form-alert {
+  color: red;
 }
 </style>

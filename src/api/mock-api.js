@@ -50,4 +50,9 @@ Mock.mock(Api.modifySelfInfo, {
 
 Mock.mock(Api.addTask, {
   'success': true,
+  'id': 10000
+})
+
+Mock.mock(Api.addFolder, {
+  'success': true,
 })

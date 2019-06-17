@@ -34,29 +34,41 @@
       </b-list-group>
       <hr class="line">
       <b-list-group id="folder-settings">
-        <b-list-group-item>
+        <b-list-group-item @click="addFolder">
           <span class="iconfont icon-icon_add"></span>
           <span>添加清单</span>
         </b-list-group-item>
       </b-list-group>
     </section>
+
+    <b-modal id="new-folder-form-modal" centered
+        @hidden="newFolderFormAlert=false">
+      <template slot="modal-header">
+        <h6>添加清单</h6>
+      </template>
+      <b-form id="new-folder-form">
+        <b-form-input type="text" id="new-folder"
+            v-model="newFolder" @focus="newFolderFormAlert=false"></b-form-input>
+      </b-form>
+      <template slot="modal-footer" slot-scope="{ ok }">
+        <span class="form-alert" v-show="newFolderFormAlert">
+          请输入清单名称
+        </span>
+        <b-button size="sm" variant="success" @click="commitNewFolder">
+          添加
+        </b-button>
+      </template>
+    </b-modal>
   </section>
 
 </template>
 
 <script>
 import {Api} from '../../api/api.js';
-
+import axios from 'axios';
 
 export default {
   name: "Sidebar",
-  created: function(){
-    
-
-  },
-  destroyed: function(){
-
-  },
   props: {
     taskFolders: {
       type: Array,
@@ -67,6 +79,8 @@ export default {
     return {
       openStyle: {},
       isOpen: false,
+      newFolder: "",
+      newFolderFormAlert: false,
     }
   },
   computed: {
@@ -118,6 +132,25 @@ export default {
       } else if(id === 'sidebar-open-button-icon') {
         this.open();
       }
+    },
+    addFolder(){
+      this.$bvModal.show("new-folder-form-modal");
+    },
+    commitNewFolder(){
+      const newFolder = {folderName: this.newFolder};
+      if(newFolder.folderName===""){
+        this.newFolderFormAlert = true;
+        return;
+      }
+      axios
+        .post("addFolder", newFolder)
+        .then(response => {
+          if(response.data.success===true) {
+            this.newFolder = "";
+            this.$emit('refreshFolderList');
+            this.$bvModal.hide("new-folder-form-modal");
+          }
+        })
     }
   }
 }
@@ -170,5 +203,9 @@ export default {
   margin-top: 0;
   margin-bottom: 0;
   background-color: black;
+}
+
+.form-alert {
+  color: red;
 }
 </style>
