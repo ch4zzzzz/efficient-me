@@ -50,7 +50,7 @@
         <b-form-input type="text" id="new-folder"
             v-model="newFolder" @focus="newFolderFormAlert=false"></b-form-input>
       </b-form>
-      <template slot="modal-footer" slot-scope="{ ok }">
+      <template slot="modal-footer">
         <span class="form-alert" v-show="newFolderFormAlert">
           请输入清单名称
         </span>

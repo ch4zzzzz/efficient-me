@@ -13,7 +13,6 @@
 <script>
 import Header from "./components/common/header/Header.vue"
 import Footer from "./components/common/footer/Footer.vue"
-import Vue from "vue";
 
 export default {
   name: "App",

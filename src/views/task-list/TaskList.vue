@@ -36,7 +36,7 @@
             placeholde="日期"
             @focus="newTaskFormAlert=false"/>
       </b-form>
-      <template slot="modal-footer" slot-scope="{ ok }">
+      <template slot="modal-footer">
         <span class="form-alert" 
             v-show="newTaskFormAlert">
           请输入清单名称
