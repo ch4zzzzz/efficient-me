@@ -5,6 +5,7 @@ import App from './App.vue'
 Vue.use(Router)
 
 import Login from "./views/login/Login.vue"
+import SignIn from "./views/sign-in/SignIn.vue"
 import TaskList from "./views/task-list/TaskList.vue"
 import Settings from "./views/settings/Settings.vue"
 import {default as SettingsMain} from "./views/settings/Main.vue"
@@ -30,6 +31,11 @@ export default new Router({
           path: "home/", // 首页 登录页
           component: Login,
           name: 'Login',
+        },
+        {
+          path: "sign-in/",
+          component: SignIn,
+          name: 'SignIn',
         },
         {
           path: "task-list/", // 任务列表页

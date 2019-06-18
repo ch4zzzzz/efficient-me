@@ -4,7 +4,7 @@
     <b-list-group>
       <b-list-group-item>
         <b-form-checkbox v-model="checked" name="check-button" switch>
-          Switch Checkbox
+          日历清单
         </b-form-checkbox>
       </b-list-group-item>
     </b-list-group>

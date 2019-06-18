@@ -17,6 +17,7 @@ export default new Vuex.Store({
     taskFolder: "",
     currentView: "",
     showSidebar: false,
+    footer: false,
     user: {},
   },
   mutations: {
@@ -38,6 +39,12 @@ export default new Vuex.Store({
     setUser(state, user){
       state.user = user;
     },
+    showFooter(state) {
+      state.footer = true;
+    },
+    hideFooter(state) {
+      state.footer = false;
+    }
   },
   actions: {
 

@@ -1,7 +1,7 @@
 <template>
   <section id="login" @submit.stop.prevent>
     <b-form id="login-form">
-      <h1> {{appName}} </h1>
+      <h1 id="login-form-h"> {{appName}} </h1>
       <b-form-group class="label"
           label="用户名"
           label-for="input-username">
@@ -94,7 +94,7 @@ export default {
   width: 80%;
 }
 
-h1 {
+#login-form-h {
   text-align: center;
 }
 

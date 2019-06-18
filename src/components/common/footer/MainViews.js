@@ -1,17 +1,12 @@
 const views = [
   {
     name: "tasks",
-    link: "",
+    link: "/task-list/",
     icon: ""
   },
   {
-    name: "settings",
-    link: "",
-    icon: "",
-  },
-  {
     name: "tomatoes",
-    link: "",
+    link: "/tomatoes/",
     icon: ""
   }
 ]

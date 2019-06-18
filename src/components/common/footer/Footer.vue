@@ -1,12 +1,12 @@
 <template>
-  <ul v-if="buttons.length>1">
+  <ul v-if="showFooter">
     
   </ul>
 </template>
 
 <script>
 import {getStore, setStore} from "../../../config/myLocalStorage.js";
-import views from "../../../views/MainViews.js";
+import {views} from "./MainViews.js";
 
 export default {
   name: "Footer",
@@ -16,11 +16,13 @@ export default {
   data(){
     return {
       buttons: [],
+      allFooterButtons: views,
     }
   },
   created(){
-    let storedButtons = JSON.parse(getStore("footerButtons"));
-    let buttons = this.buttons;
+    const allFooterButtons = this.allFooterButtons;
+    const storedButtons = JSON.parse(getStore("footerButtons"));
+    const buttons = this.buttons;
     if(storedButtons){
       for(let i=0, len=storedButtons.length; i<len; i++){
         try {
@@ -31,13 +33,14 @@ export default {
       }
     } else {
       setStore("footerButtons", [0]);
-      console.log(getStore("?"));
       buttons.push(0);
     }
   },
-  watch: {
-
-  },
+  computed: {
+    showFooter() {
+      return (this.$store.state.footer) && (this.buttons.length);
+    }
+  }
 }
 
 </script>
