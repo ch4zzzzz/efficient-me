@@ -23,21 +23,24 @@ export default {
   },
   computed: {
     title: function(){
-      let currentView = this.$store.state.currentView;
+      const currentView = this.currentView;
+      const title = this.$store.state.title;
       if(currentView === "TaskList"){
-        let taskFolder = this.$store.state.taskFolder;
+        const taskFolder = this.$store.state.taskFolder;
         if(taskFolder){
           return taskFolder
         } else {
-          return currentView;
+          return title;
         }        
       }
-      console.log(`Current view: ${currentView}`)
-      return currentView;
+      return title;
     },
     isTaskList: function(){
-      return this.$store.state.currentView==="TaskList";
-    }
+      return this.currentView==="TaskList";
+    },
+    currentView: function(){
+      return this.$store.state.currentView;
+    },
   },
   methods: {
     sidebarToggle(){

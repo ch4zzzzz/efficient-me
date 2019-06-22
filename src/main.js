@@ -5,25 +5,27 @@ import router from './router'
 import store from './store'
 import axios from 'axios'
 
-import './api/mock-api.js'
+// import './api/mock-api.js'
 
 Vue.config.productionTip = false
 
 
 // 处理页面跳转
 router.beforeEach((to, from, next) => {
-  const name = to.name
-  console.log(`to.name: ${name}`)
+  const {name, meta:{title}} = to;
   store.commit("changeCurrentView", name);
+  store.commit("setTitle", title);
 
-  if(name==="Settings") {
-    store.commit("hideFooter")
+  if(name==="Settings" || "User") {
+    store.commit("hideFooter");
+  } else if(name==="TaskList") {
+    store.commit("showFooter");
   }
   next();
 })
 
 
-// axios.defaults.baseURL = 'https://localhost';
+axios.defaults.baseURL = 'https://localhost';
 // axios拦截器
 axios.interceptors.request.use(function (config) {
     // Do something before request is sent

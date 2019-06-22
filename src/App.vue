@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div class="app-entry">
     <keep-alive>
       <router-view class="main-view"></router-view>
     </keep-alive>
@@ -30,7 +30,7 @@ export default {
 </script>
 
 <style scoped="scoped">
-#app {
+.app-entry {
   height: 100%;
   touch-action: none;
 }

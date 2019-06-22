@@ -130,7 +130,6 @@ export default {
   },
   methods: {
     folderFilter(folderName) {
-      console.log(`Current folderName: ${folderName}`)
       let tasks = this.allTasks;
       if(folderName===""){
         return tasks;
@@ -216,14 +215,12 @@ export default {
       for(let i=0,len=taskFolders.length;i<len;i++){
         options.push({value: i+1,text: taskFolders[i].folderName});
       }
-      console.log(options)
       return options;
     }
   },
   watch: {
     showSidebar: function(){
       if(this.showSidebar==true){
-        console.log("TaskList: Sidebar open")
         this.$refs.Sidebar.open();
       }
     },

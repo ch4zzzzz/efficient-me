@@ -13,6 +13,7 @@ import FooterViewSetting from "./views/settings/children/FooterViewSetting.vue"
 import UserHome from "./views/user-home/UserHome.vue"
 import {default as UserHomeMain} from "./views/user-home/Main.vue"
 import SelfInfo from "./views/user-home/children/SelfInfo.vue"
+import Tomatoes from "./views/tomatoes/Tomatoes.vue";
 
 export default new Router({
   mode: 'history',
@@ -31,16 +32,25 @@ export default new Router({
           path: "home/", // 首页 登录页
           component: Login,
           name: 'Login',
+          meta: {
+            title: 'Login'
+          }
         },
         {
           path: "sign-in/",
           component: SignIn,
           name: 'SignIn',
+          meta: {
+            title: "注册"
+          }
         },
         {
           path: "task-list/", // 任务列表页
           component: TaskList,
-          name: 'TaskList'
+          name: 'TaskList',
+          meta: {
+            title: "任务清单"
+          }
         },
         {
           path: "settings/",
@@ -50,11 +60,17 @@ export default new Router({
               path: "",
               component: SettingsMain,
               name: "Settings",
+              meta: {
+                title: "设置"
+              }
             },
             {
               path: "footer-view-setting/",
               component: FooterViewSetting,
-              name: "设置选项卡"
+              name: "设置选项卡",
+              meta: {
+                title: "设置选项卡"
+              }
             }
           ]
         },
@@ -65,15 +81,28 @@ export default new Router({
             {
               path: "",
               component: UserHomeMain,
-              name: "个人主页",
+              name: "User",
+              meta: {
+                title: "个人主页"
+              }
             },
             {
               path: "self-info/",
               component: SelfInfo,
-              name: "账户",
+              name: "Account",
+              meta: {
+                title: "账户"
+              }
             }
           ]
-
+        },
+        {
+          path: "tomatoes",
+          component: Tomatoes,
+          name: "Tomatoes",
+          meta: {
+            title: "番茄钟"
+          }
         }
       ]
     },
