@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import './plugins/bootstrap-vue'
 import App from './App.vue'
+import Base from './Base.vue'
 import router from './router'
 import store from './store'
 import axios from 'axios'
@@ -43,5 +44,5 @@ axios.interceptors.request.use(function (config) {
 new Vue({
   router,
   store,
-  render: h => h(App)
+  render: h => h(Base)
 }).$mount('#app')

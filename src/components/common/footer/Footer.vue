@@ -1,6 +1,6 @@
 <template>
   <ul v-if="showFooter" id="footer">
-    <li v-for="item in storedButtons">
+    <li v-for="item in storedButtons" :key="item.id">
       {{item.title}}
     </li>
   </ul>
