@@ -26,9 +26,23 @@ export default {
   created(){
     this.items = views.slice(1);
   },
+  activated(){
+    console.log("activated")
+    const buttons = this.buttons;
+    const items = this.items;
+    for(let i=1,len=buttons.length;i<len;i++) {
+      items[buttons[i]-1].checked = true;
+    }
+  },
+  computed: {
+    buttons() {
+      return this.$store.state.footerButtons;
+    }
+  },
   methods: {
     executeSetting(newVal, index) {
       if(newVal) {
+        console.log(`add ${index+1}`)
         this.$store.commit("addFooterButtons", index+1);
       } else {
         this.$store.commit("deleteFooterButtons", index+1);

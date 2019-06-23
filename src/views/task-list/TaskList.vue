@@ -1,5 +1,5 @@
 <template>
-  <section class="TaskListView">
+  <section id="task-list-view">
     
 
     <transition-group class="task-list"
@@ -242,17 +242,15 @@ export default {
 <style scoped="scoped">
 @import '../../assets/icon/iconfont.css';
 
-.TaskListView {
+#task-list-view {
   width: 100%;
   height: 100%;
-  position: relative;
   touch-action: none;
   overflow: scroll;
 }
 
 .task-list {
   display: block;
-  position: relative;
   width: 100%;
 }
 
@@ -274,8 +272,8 @@ export default {
 }
 
 #add-task-button {
-  position: fixed;
-  bottom: 0.5rem;
+  position: absolute;
+  bottom: 3.5rem;
   right: 1rem;
 }
 

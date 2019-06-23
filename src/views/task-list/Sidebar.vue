@@ -90,7 +90,6 @@ export default {
   },
   methods: {
     changeFolder(folderName){
-      console.log(folderName);
       this.$store.commit('changeFolder', folderName);
     },
     turnToSettings(){
@@ -100,7 +99,6 @@ export default {
       this.$router.push("/user/");
     },
     open(){
-      console.log("open");
       this.openStyle = {
         left: 0,
       };
@@ -108,19 +106,16 @@ export default {
       document.addEventListener('click', this.documentClick, {passive: true});
     },
     close(){
-      console.log("close");
       this.openStyle = {};
       this.isOpen = false;
       document.removeEventListener('click', this.documentClick);
     },
     documentClick(e){
-      console.log("documentClick");
       let target = null;
       if(e && e.target){
         target = e.target;
       }
       let id = target.id;
-      console.log(`got target: ${id}`)
       if(id !== 'sidebar' &&
             id !== 'sidebarOpenButton' &&
             id !== 'user-info' &&

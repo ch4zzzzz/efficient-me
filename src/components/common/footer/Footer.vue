@@ -1,7 +1,8 @@
 <template>
-  <ul v-if="showFooter" id="footer">
-    <li v-for="item in storedButtons" :key="item.id">
-      {{item.title}}
+  <ul id="footer">
+    <li v-for="item in storedButtons" :key="item.id"
+        @click="turnTo(item.link)">
+      <span :class="item.icon" class="icon"></span>
     </li>
   </ul>
 </template>
@@ -20,46 +21,36 @@ export default {
       allFooterButtons: views,
     }
   },
-  // created(){
-  //   const allFooterButtons = this.allFooterButtons;
-  //   const storedButtons = JSON.parse(getStore("footerButtons"));
-  //   const buttons = this.buttons;
-  //   if(storedButtons){
-  //     for(let i=0, len=storedButtons.length; i<len; i++){
-  //       try {
-  //         buttons.push(allFooterButtons[storedButtons[i]]);
-  //       } catch(error) {
-  //         console.log("Invaild index of allFooterButtons: out of range!");
-  //       }
-  //     }
-  //   } else {
-  //     const defaultView = views[0]
-  //     setStore("footerButtons", [defaultView]);
-  //     buttons.push(defaultView);
-  //   }
-  // },
+  methods: {
+    turnTo(link) {
+      this.$router.replace(link);
+    }
+  },
   computed: {
-    showFooter() {
-      // return (this.$store.state.footer) && (this.buttons.length > 1);
-      return true;
-    },
     storedButtons() {
       const allFooterButtons = this.allFooterButtons;
       const buttons = this.$store.state.footerButtons;
-      const storedButtons = [];
+      let storedButtons = [];
       if(buttons.length===0) {
         this.$store.commit("addFooterButtons", 0);
         storedButtons.push(allFooterButtons[0]);
       } else {
-        console.log(buttons)
         for(let item of buttons) {
           storedButtons.push(allFooterButtons[item]);
         }
       }
-      console.log(storedButtons)
       return storedButtons;
     },
   },
+  watch: {
+    showFooter(newVal, oldVal) {
+      if(newVal===true) {
+        this.$emit('open', newVal);
+      } else {
+        this.$emit('close', newVal);
+      }
+    },
+  }
 }
 
 </script>
@@ -67,13 +58,19 @@ export default {
 <style scoped="scoped">
 #footer {
   list-style: none;
-  position: sticky;
+  position: fixed;
   bottom: 0;
-  height: 1.5rem;
+  height: 3rem;
+  width: 100%;
+  margin: 0;
+  border-top: solid;
+  padding-left: 0;
+  background-color: white;
+  display: flex;
 }
 
 #footer > li {
-  float: left;
+  flex: auto;
 }
 
 .header {
@@ -81,4 +78,11 @@ export default {
   height: 1rem;
 }
 
+.icon {
+  display: inline-block;
+  font-size: 2rem;
+  position: relative;
+  left: 50%;
+  transform: translate(-50%, 0);
+}
 </style>

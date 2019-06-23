@@ -1,6 +1,8 @@
 <template>
   <section id="settings">
-    <router-view></router-view>
+    <keep-alive>
+      <router-view></router-view>
+    </keep-alive>
 
   </section>
 </template>

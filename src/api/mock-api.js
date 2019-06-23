@@ -10,7 +10,7 @@ Mock.mock(Api.getTaskList, {
   'taskList|2-10': [{
     'id|+1': 1,
     'name': '@csentence(4,12)',
-    'date': '@date(T)',
+    'date': '@date',
     'folderName': '@ctitle(2,5)',
     'complete': '@boolean'
   }]

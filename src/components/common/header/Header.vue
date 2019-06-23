@@ -47,14 +47,9 @@ export default {
       this.$store.commit("sidebarToggle");
     },
     sidebarShow(){
-      console.log("sidebarShow")
       this.$store.commit("sidebarShow");
-      console.log(this.$store.state.showSidebar);
     }
   },
-  updated: function(){
-    console.log(`Current view: ${this.title}`);
-  }
 
 }
 </script>

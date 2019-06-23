@@ -14,6 +14,7 @@ import UserHome from "./views/user-home/UserHome.vue"
 import {default as UserHomeMain} from "./views/user-home/Main.vue"
 import SelfInfo from "./views/user-home/children/SelfInfo.vue"
 import Tomatoes from "./views/tomatoes/Tomatoes.vue";
+import Calendar from "./views/calendar/Calendar.vue";
 
 export default new Router({
   mode: 'history',
@@ -97,11 +98,19 @@ export default new Router({
           ]
         },
         {
-          path: "tomatoes",
+          path: "tomatoes/",
           component: Tomatoes,
           name: "Tomatoes",
           meta: {
             title: "番茄钟"
+          }
+        },
+        {
+          path: "calendar/",
+          component: Calendar,
+          name: "Calendar",
+          meta: {
+            title: "日历视图"
           }
         }
       ]

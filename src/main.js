@@ -6,7 +6,7 @@ import router from './router'
 import store from './store'
 import axios from 'axios'
 
-// import './api/mock-api.js'
+import './api/mock-api.js'
 
 Vue.config.productionTip = false
 
@@ -17,7 +17,7 @@ router.beforeEach((to, from, next) => {
   store.commit("changeCurrentView", name);
   store.commit("setTitle", title);
 
-  if(name==="Settings" || "User") {
+  if(name==="Settings" || name==="User") {
     store.commit("hideFooter");
   } else if(name==="TaskList") {
     store.commit("showFooter");
@@ -26,7 +26,7 @@ router.beforeEach((to, from, next) => {
 })
 
 
-axios.defaults.baseURL = 'https://localhost';
+// axios.defaults.baseURL = 'https://localhost';
 // axios拦截器
 axios.interceptors.request.use(function (config) {
     // Do something before request is sent

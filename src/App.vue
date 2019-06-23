@@ -1,12 +1,14 @@
 <template>
   <div id="app">
     <keep-alive>
-      <router-view class="main-view"></router-view>
+      <router-view class="main-view"
+          :class="{'footer-existing': showFooter}">      
+      </router-view>
     </keep-alive>
 
     <Header v-show="!isLoginView">
     </Header>
-    <Footer/>
+    <Footer v-if="showFooter"/>
   </div>
 </template>
 
@@ -20,10 +22,27 @@ export default {
     Footer,
     Header,
   },
+  data(){
+    return {
+      footerExisting: false,
+    }
+  },
+  methods: {
+    footerShowed() {
+      this.footerExisting = true;
+    },
+    footerHidden() {
+      this.footerExisting = false;
+    }
+  },
   computed: {
     isLoginView(){
       return this.$store.state.currentView==="Login"
-    }
+    },
+    showFooter() {
+      const buttonLen = this.$store.state.footerButtons.length;
+      return (this.$store.state.footer) && (buttonLen > 1);
+    },
   },
 
 }
@@ -36,6 +55,10 @@ export default {
 }
 
 .main-view {
-  padding-top: 1.5rem;
+  padding-top: 3rem;
+}
+
+.footer-existing {
+  padding-bottom: 3rem;
 }
 </style>

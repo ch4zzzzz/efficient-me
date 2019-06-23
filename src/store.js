@@ -21,7 +21,7 @@ export default new Vuex.Store({
     showSidebar: false,
     footer: false,
     user: {},
-    footerButtons: [],
+    footerButtons: [0],
   },
   mutations: {
     changeFolder(state, folderName) {
@@ -56,14 +56,14 @@ export default new Vuex.Store({
       for(let i=0, len=indexs.length;i<len;i++){
         set.add(indexs[i]);
       }
-      state.footer = Array.from(set);
+      state.footerButtons = Array.from(set);
     },
     deleteFooterButtons(state, ...indexs) {
       const set = new Set(state.footerButtons);
       for(let i=0, len=indexs.length;i<len;i++) {
         set.delete(indexs[i]);
       }
-      state.footer = Array.from(set);
+      state.footerButtons = Array.from(set);
     }
   },
   actions: {
