@@ -6,7 +6,7 @@ import router from './router'
 import store from './store'
 import axios from 'axios'
 
-import './api/mock-api.js'
+// import './api/mock-api.js'
 
 Vue.config.productionTip = false
 
@@ -26,7 +26,7 @@ router.beforeEach((to, from, next) => {
 })
 
 
-// axios.defaults.baseURL = 'https://localhost';
+axios.defaults.baseURL = 'https://localhost';
 // axios拦截器
 axios.interceptors.request.use(function (config) {
     // Do something before request is sent
@@ -40,6 +40,17 @@ axios.interceptors.request.use(function (config) {
     return Promise.reject(error);
   });
 
+//返回拦截
+axios.interceptors.response.use(response => {
+  return Promise.resolve(response);
+}, error => {
+  const response = error.response;
+  console.log(response || 'no response');
+  if(response.status===401) {
+    router.replace('/home/');
+    return Promise.reject(response);
+  }
+})
 
 new Vue({
   router,

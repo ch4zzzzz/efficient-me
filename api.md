@@ -51,6 +51,31 @@ baseUrl
   }
   ```
 
+### token登录
+
+* 请求方式
+  `POST`
+* url
+  `'/tlogin'`
+* 返回示例
+  ```javascript
+  {
+    success:true,
+    type: 'LOGIN_SUCCESS',
+    message: 'Login success.',
+    user: {
+      username: 'user2020',
+    name: '用户2020',
+      photo: 'https://github.com/ch4zzzzz/efficient-me/raw/master/src/assets/img/1.jpg'
+      level: 4,
+      email: 'emial@a.b',
+      introduction: '个人简介',
+      createDate: '2019-03-03',
+      lastLoginDate: '2019-06-01'
+    }
+  }
+  ````
+
 ### 添加任务
 
 * 请求方式

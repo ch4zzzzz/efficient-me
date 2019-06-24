@@ -56,3 +56,12 @@ Mock.mock(Api.addTask, {
 Mock.mock(Api.addFolder, {
   'success': true,
 })
+
+Mock.mock(Api.tLogin, {
+  'success': true,
+  'user': {
+    'username': '@cname',
+    'photo': 'https://github.com/ch4zzzzz/efficient-me/raw/master/src/assets/img/1.jpg',
+    'level': 4,
+  }
+})

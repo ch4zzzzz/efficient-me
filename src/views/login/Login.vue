@@ -47,6 +47,16 @@ import {setStore} from '../../config/myLocalStorage.js';
 
 export default {
   name: 'Login',
+  created() {
+    axios
+      .post("/tLogin/", {})
+      .then(response => {
+        this.handleResponse(response);
+      })
+      .catch(error => {
+        console.log(error);
+      })
+  },
   data() {
     return {
       appName,
@@ -68,18 +78,23 @@ export default {
           password,
         })
         .then(response => {
-          let data = response.data
-          let user = data.user;
-          if(data.success){
-            this.$store.commit('setUser', user);
-            this.$router.replace("/task-list/");
-            setStore('username', user.username);
-          }
-
+          this.handleResponse(response);
         })
         .catch(error => {
           console.log(error);
         })
+    },
+    handleResponse(response) {
+      let data = response.data
+      let user = data.user;
+      if(data.success){
+        this.$store.commit('setUser', user);
+        this.$store.commit('login');
+        this.$router.replace("/task-list/");
+        setStore('username', user.username);
+        return Promise.resolve(response);
+      } 
+
     }
   }
 }
