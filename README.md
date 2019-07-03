@@ -50,7 +50,10 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
   * 头像
   * 用户名
   * 编辑 -> 编辑个人信息
-- [ ] 设置
+- [x] 设置
 - [ ] 番茄钟
 - [ ] 社区
 
+## 接口文档
+
+[接口文档](https://github.com/ch4zzzzz/efficient-me/blob/master/api.md)
