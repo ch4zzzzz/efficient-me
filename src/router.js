@@ -13,6 +13,7 @@ import FooterViewSetting from "./views/settings/children/FooterViewSetting.vue"
 import UserHome from "./views/user-home/UserHome.vue"
 import {default as UserHomeMain} from "./views/user-home/Main.vue"
 import SelfInfo from "./views/user-home/children/SelfInfo.vue"
+import Cropper from "./views/user-home/children/Cropper.vue"
 import Tomatoes from "./views/tomatoes/Tomatoes.vue";
 import Calendar from "./views/calendar/Calendar.vue";
 
@@ -93,6 +94,15 @@ export default new Router({
               name: "Account",
               meta: {
                 title: "账户"
+              }
+            },
+            {
+              path: "cropper/:imgFile",
+              component: Cropper,
+              name: "Cropper",
+              props: true,
+              meta: {
+                title: "修改头像"
               }
             }
           ]

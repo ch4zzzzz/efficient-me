@@ -34,7 +34,7 @@ Mock.mock(Api.login, {
 
 Mock.mock(Api.getSelfInfo, {
   'success': true,
-  'userInfo': {
+  'user': {
     'username': '@cname',
     'photo': 'https://github.com/ch4zzzzz/efficient-me/raw/master/src/assets/img/1.jpg',
     'name': '@cname',
@@ -57,7 +57,16 @@ Mock.mock(Api.addFolder, {
   'success': true,
 })
 
-Mock.mock(Api.tLogin, {
+// Mock.mock(Api.tLogin, {
+//   'success': true,
+//   'user': {
+//     'username': '@cname',
+//     'photo': 'https://github.com/ch4zzzzz/efficient-me/raw/master/src/assets/img/1.jpg',
+//     'level': 4,
+//   }
+// })
+
+Mock.mock('http://localhost:8080/tLogin/', {
   'success': true,
   'user': {
     'username': '@cname',

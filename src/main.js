@@ -6,7 +6,7 @@ import router from './router'
 import store from './store'
 import axios from 'axios'
 
-// import './api/mock-api.js'
+import './api/mock-api.js'
 
 Vue.config.productionTip = false
 
@@ -16,7 +16,6 @@ router.beforeEach((to, from, next) => {
   const {name, meta:{title}} = to;
   store.commit("changeCurrentView", name);
   store.commit("setTitle", title);
-
   if(name==="Settings" || name==="User") {
     store.commit("hideFooter");
   } else if(name==="TaskList") {
@@ -26,14 +25,13 @@ router.beforeEach((to, from, next) => {
 })
 
 
-axios.defaults.baseURL = 'https://localhost';
+// axios.defaults.baseURL = 'https://localhost';
 // axios拦截器
 axios.interceptors.request.use(function (config) {
     // Do something before request is sent
     config.headers['X-Requested-With'] = 'XMLHttpRequest';
     let regex = /.*csrftoken=([^;.]*).*$/; // 用于从cookie中匹配 csrftoken值
     config.headers['X-CSRFToken'] = document.cookie.match(regex) === null ? null : document.cookie.match(regex)[1];
-    console.log("set X-CSRFToken");
     return config;　　
   }, function (error) {
     // Do something with request error
@@ -45,7 +43,6 @@ axios.interceptors.response.use(response => {
   return Promise.resolve(response);
 }, error => {
   const response = error.response;
-  console.log(response || 'no response');
   if(response.status===401) {
     router.replace('/home/');
     return Promise.reject(response);

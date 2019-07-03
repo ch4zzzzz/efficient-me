@@ -31,11 +31,16 @@
           {{'修改'+item.name}}
         </h6>
       </template>
-      <ul class="ul">
+      <ul class="ul" v-show="!photo">
         <li class="photo-edit-li">拍照</li>
-        <li class="photo-edit-li"><input type="file" name="selectLocalImg" placeholder="选择本地图片"></li>
+        <li class="photo-edit-li" @click="selectLocalImg">选择本地图片</li>
+        <input id="localImgSelector" style="display: none;"
+            type="file" name="selectLocalImg" placeholder="选择本地图片"
+            @change="startCropper">
       </ul>
-      
+      <div>
+        <img v-show="photo" alt="photo" id="self-info-new-photo">
+      </div>
  
     </b-modal>
 
@@ -44,6 +49,8 @@
 
 <script>
 import axios from 'axios'
+import Cropper from 'cropperjs'
+import 'cropperjs/dist/cropper.css';
 
 export default {
   name: "SelfInfoItem",
@@ -53,6 +60,7 @@ export default {
   data(){
     return {
       content: "",
+      photo: false,
     }
   },
   props: {
@@ -68,20 +76,20 @@ export default {
     invariant: {
       type: Boolean,
       default: false,
+    },
+    aspectRatio: {
+      type: Number,
+      default: NaN,
     }
   },
   methods: {
     edit(){
       let invariant = this.invariant;
       if(invariant===true){
-        console.log("invariant");
+        return;
       } else {
-        console.log("edit");
         this.$refs['item-edit-modal'].show();
       }
-    },
-    show() {
-      this.$refs['modal'].show();
     },
     update() {
       let newValue = this.content;
@@ -101,6 +109,25 @@ export default {
           }
         })
     },
+    selectLocalImg() {
+      const localImgSelector = document.querySelector('#localImgSelector');
+      localImgSelector.click();
+    },
+    startCropper(event) {
+      this.photo = true;
+      const files = Array.prototype.slice.call(event.target.files);
+      // const fileUrl = window.URL.createObjectURL(files[0]);
+      const file = files[0];
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = e => {
+        const img = document.querySelector('#self-info-new-photo');
+        img.src = reader.result;
+        const cropper = new Cropper(img, {
+          aspectRatio: 1/1
+        })
+      }
+    }
   },
   watch: {
     ret(){
@@ -112,6 +139,7 @@ export default {
 </script>
 
 <style scoped="scoped">
+
 .item {
   line-height: 2rem;
   box-sizing: content-box;
@@ -149,4 +177,10 @@ export default {
   margin-bottom: 1rem;
 }
 
+#self-info-new-photo {
+  max-width: 100%;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
 </style>
