@@ -4,20 +4,26 @@
       {{item.name}}
     </span>
     <span v-if="(type==='text')&&item.content" class="item-content">
-      {{item.content}}
+      {{content}}
     </span>
     <span v-else-if="(type==='img')&&item.content">
        <img :src="item.content" alt="头像" class="self-info-photo">
     </span>
     
     
-    <b-modal v-if="type==='text'" class="item-edit" ref='item-edit-modal' centered>
+    <b-modal v-if="type==='text'" class="item-edit"
+        ref='item-edit-modal'
+        centered
+        @show="passContentValue"
+        @cancel="cancelEvent"
+        @close="closeEvent"
+        @hide="hideEvent">
       <template slot="modal-header">
         <h6>
           {{'修改'+item.name}}
         </h6>
       </template>
-      <b-form-input placeholder="" ref="input" v-model="content"/>
+      <b-form-input placeholder="" ref="input" v-model="newContent"/>
       <template slot="modal-footer" slot-scope="{ ok }">
         <b-button size="sm" variant="success" @click="update();ok()">
           提交
@@ -61,6 +67,7 @@ export default {
     return {
       content: "",
       photo: false,
+      newContent: "",
     }
   },
   props: {
@@ -92,21 +99,18 @@ export default {
       }
     },
     update() {
-      let newValue = this.content;
+      let newValue = this.newContent;
       let updateApiName = this.updateApiName;
       axios
         .post(`modifySelfInfo/${updateApiName}`, {'value': newValue})
         .then(response => {
           let data = response.data;
-          console.log(data.success);
           return data.success;
         })
         .then(resolve => {
           if(resolve===true){
-            this.item.content = newValue;
-          } else {
-            this.content = this.item.content;
-          }
+            this.content = newValue;
+          } 
         })
     },
     selectLocalImg() {
@@ -127,6 +131,9 @@ export default {
           aspectRatio: 1/1
         })
       }
+    },
+    passContentValue() {
+      this.newContent = this.content;
     }
   },
   watch: {
