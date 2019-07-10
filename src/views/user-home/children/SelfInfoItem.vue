@@ -14,10 +14,7 @@
     <b-modal v-if="type==='text'" class="item-edit"
         ref='item-edit-modal'
         centered
-        @show="passContentValue"
-        @cancel="cancelEvent"
-        @close="closeEvent"
-        @hide="hideEvent">
+        @show="passContentValue">
       <template slot="modal-header">
         <h6>
           {{'修改'+item.name}}
@@ -30,8 +27,8 @@
         </b-button>
       </template>
     </b-modal>
-
-    <b-modal v-else-if="type==='img'" class="photo-edit" ref="item-edit-modal" centered hide-footer>
+    <ImageCut v-else-if="type==='img'" ref="item-edit-modal"></ImageCut>
+<!--     <b-modal v-else-if="type==='img'" class="photo-edit" ref="item-edit-modal" centered hide-footer>
       <template slot="modal-header">
         <h6>
           {{'修改'+item.name}}
@@ -46,7 +43,7 @@
       </ul>
       <div>
         <img v-show="photo" alt="photo" id="self-info-new-photo">
-      </div>
+      </div> -->
  
     </b-modal>
 
@@ -54,12 +51,14 @@
 </template>
 
 <script>
-import axios from 'axios'
-import Cropper from 'cropperjs'
-import 'cropperjs/dist/cropper.css';
+import axios from 'axios';
+import ImageCut from './ImageCut.vue';
 
 export default {
   name: "SelfInfoItem",
+  components: {
+    ImageCut,
+  },
   created(){
     this.content = this.item.content;
   },
@@ -179,15 +178,4 @@ export default {
   font-size: 1.2rem;
 }
 
-.photo-edit-li {
-  list-style-type: none;
-  margin-bottom: 1rem;
-}
-
-#self-info-new-photo {
-  max-width: 100%;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-}
 </style>
