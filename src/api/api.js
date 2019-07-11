@@ -8,7 +8,8 @@ const Api = {
   modifySelfInfo: new RegExp('^'+baseUrl+'modifySelfInfo'+'/[a-zA-Z]*$'),
   addTask: baseUrl+"addTask",
   addFolder: baseUrl+"addFolder",
-  tLogin: baseUrl+"tLogin"
+  tLogin: baseUrl+"tLogin",
+  setPhoto: baseUrl+'setPhoto'
 }
 
 export {

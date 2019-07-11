@@ -22,6 +22,7 @@
         style="display: none;"
         type="file" name="selectLocalImg"
         placeholder="选择本地图片"
+        accept=".jpg, jpeg" 
         @change="startCropper">
   </b-modal>
 </template>
@@ -29,15 +30,14 @@
 <script>
 import Cropper from 'cropperjs';
 import 'cropperjs/dist/cropper.css';
+import axios from 'axios';
 
 export default {
   name: "ImageCut",
   data() {
     return {
       photo: false,
-      cropper: false,
-      cropperReplace: undefined,
-      cropperDestory: undefined,
+      cropper: undefined,
     }
   },
   props: {
@@ -75,34 +75,41 @@ export default {
         img.src = reader.result;
         if(this.cropper) {
           let cropper = this.cropper;
-          this.cropperReplace(reader.result); 
+          cropper.replace(reader.result); 
         } else {
           console.log("new")
           let cropper = new Cropper(img, {
             aspectRatio,
             background: false,
           });
-          this.cropperDestory = cropper.destroy.bind(cropper);
-          this.cropperReplace = cropper.replace.bind(cropper);
-          this.cropper = true;
+          this.cropper = cropper;
         }
       }
     },
     turnToDefault() {
       this.photo = false;
-      const cropper = this.cropper;
+      let cropper = this.cropper;
       if(cropper) {
-        this.cropperdestroy();
-        this.cropper = false;
+        cropper.destroy();
+        this.cropper = undefined;
       }
     },
     excuteButtons(event) {
       const id = event.target.id;
       if(id==="pickImg") {
         const cropper = this.cropper;
-        const imgCanvasData = cropper.getCroppedCanvas();
-        const data = imgCanvasData.toDataUrl();
-        console.log(data);
+        cropper.getCroppedCanvas().toBlob((blob) => {
+          const formData = new FormData();
+          formData.append('image', blob);
+          axios
+            .post(this.uploadUrl, formData)
+            .then(res => {
+              const data = res.data;
+              if(data.success) {
+                console.log(data.url);
+              }
+            })
+        });
       } else if(id==="rePickImg") {
         this.selectLocalImg();
       } else if(id==="quitImgSelector") {

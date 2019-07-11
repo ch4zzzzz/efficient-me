@@ -27,25 +27,8 @@
         </b-button>
       </template>
     </b-modal>
-    <ImageCut v-else-if="type==='img'" ref="item-edit-modal"></ImageCut>
-<!--     <b-modal v-else-if="type==='img'" class="photo-edit" ref="item-edit-modal" centered hide-footer>
-      <template slot="modal-header">
-        <h6>
-          {{'修改'+item.name}}
-        </h6>
-      </template>
-      <ul class="ul" v-show="!photo">
-        <li class="photo-edit-li">拍照</li>
-        <li class="photo-edit-li" @click="selectLocalImg">选择本地图片</li>
-        <input id="localImgSelector" style="display: none;"
-            type="file" name="selectLocalImg" placeholder="选择本地图片"
-            @change="startCropper">
-      </ul>
-      <div>
-        <img v-show="photo" alt="photo" id="self-info-new-photo">
-      </div> -->
- 
-    </b-modal>
+    <ImageCut v-else-if="type==='img'" ref="item-edit-modal"
+        uploadUrl="/setPhoto"/>
 
   </b-list-group-item>
 </template>

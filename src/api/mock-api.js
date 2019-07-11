@@ -74,3 +74,8 @@ Mock.mock('http://localhost:8080/tLogin/', {
     'level': 4,
   }
 })
+
+Mock.mock(Api.setPhoto, {
+  'success': true,
+  'image': 'image'
+})
