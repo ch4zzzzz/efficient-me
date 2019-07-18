@@ -6,7 +6,13 @@ import router from './router'
 import store from './store'
 import axios from 'axios'
 
-// import './api/mock-api.js'
+if(process.env.NODE_ENV !== 'producrtion') {
+  (async () => {
+    const mock = await import('./api/mock-api.js');
+  })()
+} else {
+  axios.defaults.baseURL = 'https://localhost';
+}
 
 Vue.config.productionTip = false
 
@@ -25,7 +31,6 @@ router.beforeEach((to, from, next) => {
 })
 
 
-axios.defaults.baseURL = 'https://localhost';
 // axios拦截器
 axios.interceptors.request.use(function (config) {
     // Do something before request is sent

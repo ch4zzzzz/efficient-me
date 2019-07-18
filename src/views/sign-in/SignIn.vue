@@ -16,7 +16,7 @@
 <script>
 import {appName} from "../../config/app.js"
 
-export default {
+export default Promise.resolve({
   name: "SignIn",
   data() {
     return {
@@ -28,7 +28,7 @@ export default {
       }
     }
   }
-}
+})
 </script>
 
 <style scoped="scoped">

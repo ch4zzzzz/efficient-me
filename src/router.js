@@ -3,19 +3,30 @@ import Router from 'vue-router'
 import App from './App.vue'
 
 Vue.use(Router)
-
-import Login from "./views/login/Login.vue"
-import SignIn from "./views/sign-in/SignIn.vue"
-import TaskList from "./views/task-list/TaskList.vue"
-import Settings from "./views/settings/Settings.vue"
-import {default as SettingsMain} from "./views/settings/Main.vue"
-import FooterViewSetting from "./views/settings/children/FooterViewSetting.vue"
-import UserHome from "./views/user-home/UserHome.vue"
-import {default as UserHomeMain} from "./views/user-home/Main.vue"
-import SelfInfo from "./views/user-home/children/SelfInfo.vue"
-import Cropper from "./views/user-home/children/Cropper.vue"
-import Tomatoes from "./views/tomatoes/Tomatoes.vue";
-import Calendar from "./views/calendar/Calendar.vue";
+const Login =  () => import("./views/login/Login.vue")
+// import Login from "./views/login/Login.vue"
+const SignIn = () => import("./views/sign-in/SignIn.vue")
+// import SignIn from "./views/sign-in/SignIn.vue"
+const TaskList = () => import("./views/task-list/TaskList.vue")
+// import TaskList from "./views/task-list/TaskList.vue"
+const Settings = () => import("./views/settings/Settings.vue")
+// import Settings from "./views/settings/Settings.vue"
+const SettingsMain = () => import("./views/settings/Main.vue")
+// import {default as SettingsMain} from "./views/settings/Main.vue"
+const FooterViewSetting = () => import("./views/settings/children/FooterViewSetting.vue")
+// import FooterViewSetting from "./views/settings/children/FooterViewSetting.vue"
+const UserHome = () => import("./views/user-home/UserHome.vue")
+// import UserHome from "./views/user-home/UserHome.vue"
+const UserHomeMain = () => import("./views/user-home/Main.vue")
+// import {default as UserHomeMain} from "./views/user-home/Main.vue"
+const SelfInfo = () => import("./views/user-home/children/SelfInfo.vue")
+// import SelfInfo from "./views/user-home/children/SelfInfo.vue"
+const Cropper = () => import("./views/user-home/children/Cropper.vue")
+// import Cropper from "./views/user-home/children/Cropper.vue"
+const Tomatoes = () => import("./views/tomatoes/Tomatoes.vue")
+// import Tomatoes from "./views/tomatoes/Tomatoes.vue";
+const Calendar = () => import("./views/calendar/Calendar.vue")
+// import Calendar from "./views/calendar/Calendar.vue";
 
 export default new Router({
   mode: 'history',
