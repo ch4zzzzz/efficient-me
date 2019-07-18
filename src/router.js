@@ -3,12 +3,12 @@ import Router from 'vue-router'
 import App from './App.vue'
 
 Vue.use(Router)
-const Login =  () => import("./views/login/Login.vue")
-// import Login from "./views/login/Login.vue"
+// const Login =  () => import("./views/login/Login.vue")
+import Login from "./views/login/Login.vue"
 const SignIn = () => import("./views/sign-in/SignIn.vue")
 // import SignIn from "./views/sign-in/SignIn.vue"
-const TaskList = () => import("./views/task-list/TaskList.vue")
-// import TaskList from "./views/task-list/TaskList.vue"
+// const TaskList = () => import("./views/task-list/TaskList.vue")
+import TaskList from "./views/task-list/TaskList.vue"
 const Settings = () => import("./views/settings/Settings.vue")
 // import Settings from "./views/settings/Settings.vue"
 const SettingsMain = () => import("./views/settings/Main.vue")
