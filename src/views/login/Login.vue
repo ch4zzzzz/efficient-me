@@ -28,11 +28,11 @@
     </b-form>
     
     <!-- 注册和找回密码 -->
-    <section id="other-links">
+    <!-- <section id="other-links">
 
       <b-link class="link link-left" to="">注册账号</b-link>
       <b-link class="link link-right" to="">找回密码</b-link>
-    </section>
+    </section> -->
 
 
   

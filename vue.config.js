@@ -8,6 +8,9 @@ module.exports = {
       filename: 'index.html',
       title: 'efficient-me',
     }
+  },
+  chainWebpack: config => {
+    config.plugins.delete('prefetch');
   }
 
 }
