@@ -11,7 +11,7 @@ if(process.env.NODE_ENV !== 'production') {
     const mock = await import('./api/mock-api.js');
   })()
 } else {
-  axios.defaults.baseURL = 'https://localhost';
+  axios.defaults.baseURL = 'https://www.flowering-tree.cn';
 }
 
 Vue.config.productionTip = false
