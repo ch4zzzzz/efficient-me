@@ -6,7 +6,7 @@ import router from './router'
 import store from './store'
 import axios from 'axios'
 
-if(process.env.NODE_ENV !== 'producrtion') {
+if(process.env.NODE_ENV !== 'production') {
   (async () => {
     const mock = await import('./api/mock-api.js');
   })()
