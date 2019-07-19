@@ -1,3 +1,5 @@
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+ 
 module.exports = {
   publicPath: "/",
   assetsDir: "static",
@@ -11,6 +13,11 @@ module.exports = {
   },
   chainWebpack: config => {
     config.plugins.delete('prefetch');
+  },
+  configureWebpack: {
+    plugins: [
+      new BundleAnalyzerPlugin()
+    ]
   }
 
 }

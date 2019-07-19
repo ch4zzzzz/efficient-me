@@ -36,7 +36,8 @@
     "portal-vue": "^2.1.4",
     "sass-loader": "^7.1.0",
     "vue-cli-plugin-bootstrap-vue": "^0.4.0",
-    "vue-template-compiler": "^2.5.21"
+    "vue-template-compiler": "^2.5.21",
+    "webpack-bundle-analyzer": "^3.3.2"
   },
   "eslintConfig": {
     "root": true,
