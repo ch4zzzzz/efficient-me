@@ -1,5 +1,8 @@
+const path = require('path')
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
- 
+const PrerenderSPAPlugin = require('prerender-spa-plugin');
+const Renderer = PrerenderSPAPlugin.PuppeteerRenderer;
+
 module.exports = {
   publicPath: "/",
   assetsDir: "static",
@@ -16,8 +19,15 @@ module.exports = {
   },
   configureWebpack: {
     plugins: [
-      new BundleAnalyzerPlugin()
+      new BundleAnalyzerPlugin(),
+      new PrerenderSPAPlugin({
+        // Required - The path to the webpack-outputted app to prerender.
+        staticDir: path.join(__dirname, 'dist'),
+        // Required - Routes to render.
+        routes: [ '/', '/login'],
+      })
     ]
   }
 
 }
+
